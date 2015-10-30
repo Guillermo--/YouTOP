@@ -1,0 +1,308 @@
+@CHARSET "ISO-8859-1";
+
+html { 
+	position: absolute; 
+	top: 0; 
+	bottom: 0; 
+	left: 0; 
+	right: 0; 
+}    
+
+body {
+	color: white;
+	font-family: 'Roboto';
+	font-weight: 100;
+	height: 100%;
+	min-height: 700px;
+	width: 100%;
+	min-width: 950px;
+	padding: 0px;
+	margin: 0px;
+}
+
+.mainContainer {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	background-color: #CFD8DC;
+	overflow: auto;
+}
+
+.sideBarContainer{
+	position: relative;
+	height: 100%;
+	width: 400px;
+	min-width: 400px;
+	background-color: #37474F;
+	float: left;
+	box-shadow: 4px 0px 6px rgba(0,0,0,0.16), 3px 0px 3px rgba(0,0,0,0.23);
+	font-size: 1.5em;
+}
+
+.searchButtonContainer {
+	position: absolute;
+	bottom: 8%;
+	left: 360px;
+	background: none;
+}
+
+.searchButtonContainer button {
+	position: relative;
+	height: 80px;
+	width: 80px;
+	border-radius: 50%;
+	background: #C52800;
+	border: none;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.searchButtonContainer button:focus {
+	outline: none;
+}
+
+.searchResultsContainer {
+	position: relative;
+	background: #FFFFFF;
+	color: black;
+	padding: 40px;
+	margin-left: 480px;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	margin-right: 4%;
+	height: 92%;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.searchButtonContainer button span {
+	font-size: 2.4em;
+	display: block;
+	margin-left: 5px;
+	position: relative;
+}
+
+
+.categoriesContainer {
+	position: relative;
+	height: 70%;
+	width: 100%;
+	border-bottom: 2px solid #263237;
+	padding-left: 25px;
+	padding-top: 25px;
+}
+.datesContainer {
+	position: relative;
+	height: 18%;
+	width: 100%;
+	border-bottom: 2px solid #263237;
+	padding-left: 25px;
+	padding-top: 35px;
+}
+
+.displayContainer {
+	position: relative;
+	height: 12%;
+	width: 100%;
+	padding-left: 25px;
+	padding-top: 40px;
+}
+
+.categoryItem {
+	position: relative;
+	max-width: 80%;
+}
+
+.titles {
+	display: block;
+	font-size: 1em;
+	margin-bottom: 10px;
+}
+
+.checkbox {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  top: -2px;
+}
+
+.checkbox:before {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  content: "";
+  position: absolute;
+  z-index: 1;
+  border: 1px solid #607D8B;
+  height: 20px;
+  width: 20px;  
+}
+
+.checkbox:checked:before {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  border: 2px solid #FFFFFF;
+  border-top-style: none;
+  border-right-style: none;
+    height: 10px;
+    padding: 5px;
+}
+
+.checkbox:after {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background: #607D8B;
+  border: none;
+  cursor: pointer;
+}
+
+.labels {
+	display: relative;
+	display: inline-block;
+	vertical-align: bottom;
+	margin-left: 10px;
+	font-size: .8em;
+}
+
+
+.textInput { 
+  position:relative; 
+  margin-top: 30px;
+}
+
+.textInput input {
+  font-size:18px;
+  padding:8px 5px 5px 5px;
+  display:block;
+  width:80%;
+  border:none;
+  background: none;
+  border-bottom:1px solid #607D8B;
+}
+.textInput input:focus 	{ 
+	outline:none; 
+}
+
+/* LABEL ======================================= */
+.textInput label {
+	font-family: 'Roboto';
+  font-weight: 100;
+  color:#FFFFFF; 
+  font-size:1em;
+  position:absolute;
+  pointer-events:none;
+  top:5px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+.textInput input:focus ~ label, .textInput input:valid ~ label 		{
+  top:-20px;
+  font-size:18px;
+  color:#FFFFFF;
+}
+
+/* BOTTOM BARS ================================= */
+.bar { 
+	position:relative; 
+	display:block; 
+	width:80%; 
+}
+
+.bar:before, .bar:after {
+  content:'';
+  height:2px; 
+  width:0;
+  bottom:1px; 
+  position:absolute;
+  background:#607D8B; 
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%; 
+}
+
+/* active state */
+.textInput input:focus ~ .bar:before, .textInput input:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+.textInput input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+	from { background:#607D8B; }
+  to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+	from { background:#607D8B; }
+  to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+	from { background:#607D8B; }
+  to 	{ width:0; background:transparent; }
+}
+
+
+.datesContainer .categoryItem .labels{
+	font-size: 1em;
+}
+
+.datesContainer .categoryItem .checkbox {
+	top: -5px;
+}
+
+.datesContainer .textInput {
+	pposition: relative;
+	display: inline-block;
+	margin-top: 30px;
+	width: 40%;
+}
+
+.datesContainer .textInput input {
+	padding-left: 12px;
+}
+
+.to {
+	position: relative;
+	margin-left: -12px;
+	margin-right: 10px;
+}
+
+.displayContainer select {
+	font-weight:300;
+	color: black;
+	margin-left: 20px;
+	outline: none;
+}
+
+.resultsContainerTitle {
+	font-size: 2em;
+	font-weight: 300;
+}
