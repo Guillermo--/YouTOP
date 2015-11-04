@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Browse</title>
@@ -11,6 +11,7 @@
 			crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="Main.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
+	<script src="js/app.js"></script>
 
 	<script>
 	$(document).ready(function(){
@@ -36,7 +37,7 @@
 			<div class="categoriesContainer">
 				<span class="titles">Category</span>
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" class="checkbox" checked>
 					<span class="labels">All</span>	
 				</div>	
 				<div class="categoryItem">
@@ -115,7 +116,7 @@
 			</div>
 			<div class="datesContainer">
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" class="checkbox" checked>
 					<span class="labels">All Time</span>	
 				</div>
 				<div class="textInput">
@@ -134,7 +135,7 @@
 			<div class="displayContainer">
 				<span># Results</span>
 				<select>
-				  <option value="10">10</option>
+				  <option value="10" selected="selected">10</option>
 				  <option value="25">25</option>
 				  <option value="50">50</option>
 				  <option value="100">100</option>
