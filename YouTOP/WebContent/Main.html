@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html>
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Browse</title>
@@ -11,6 +11,7 @@
 			crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="Main.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
 	<script src="js/app.js"></script>
 
 	<script>
@@ -31,69 +32,78 @@
 </head>
 
 
-<body>
+<body ng-app="app">
 	<div class="mainContainer">
 		<div class="sideBarContainer">
-			<div class="categoriesContainer">
+			<div class="criteriaContainer">
+				<span class="criteria">Criteria</span>
+				<select>
+				  <option value="views" selected="selected">Most Viewed</option>
+				  <option value="likes">Most Liked</option>
+				</select>
+			</div>		
+		
+		
+			<div class="categoriesContainer" ng-controller="checkboxController">
 				<span class="titles">Category</span>
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox" checked>
+					<input type="checkbox" value="All" class="checkbox" ng-click='toggleSelection($event)'>
 					<span class="labels">All</span>	
 				</div>	
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="Autos and Vehicles" class="checkbox" ng-click='toggleSelection($event)'>
 					<span class="labels">Autos and Vehicles</span>	
 				</div>	
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="Comedy" class="checkbox" ng-click='toggleSelection($event)'>
 					<span class="labels">Comedy</span>	
 				</div>	
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="Education" class="checkbox" ng-click='toggleSelection($event)'>
 					<span class="labels">Education</span>	
 				</div>			
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="Film and Animation" class="checkbox" ng-click='toggleSelection($event)'>
 					<span class="labels">Film & Animation</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="Gaming" class="checkbox">
 					<span class="labels">Gaming</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="Howto and Style" class="checkbox">
 					<span class="labels">Howto & Style</span>	
 				</div>	
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="Music" class="checkbox">
 					<span class="labels">Music</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="News and Politics" class="checkbox">
 					<span class="labels">News & Politics</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="Nonprofits and Activism" class="checkbox">
 					<span class="labels">Nonprofits & Activism</span>	
 				</div>	
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="People and Blogs" class="checkbox">
 					<span class="labels">People & Blogs</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="Pets and Animals" class="checkbox">
 					<span class="labels">Pets & Animals</span>	
 				</div>	
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="Science and Technology" class="checkbox">
 					<span class="labels">Science & Technology</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="Sports" class="checkbox">
 					<span class="labels">Sports</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" class="checkbox">
+					<input type="checkbox" value="Travel and Events" class="checkbox">
 					<span class="labels">Travel & Events</span>	
 				</div>	
 				
@@ -105,31 +115,6 @@
 			      <!-- <label>Keyword</label> -->
 			    </div>
 			      
-			    <div class="textInput">      
-			      <input type="text" placeholder="User">
-			      <span class="highlight"></span>
-			      <span class="bar"></span>
-			      <!-- <label>User</label> -->
-			    </div>
-			    
-			    
-			</div>
-			<div class="datesContainer">
-				<div class="categoryItem">
-					<input type="checkbox" class="checkbox" checked>
-					<span class="labels">All Time</span>	
-				</div>
-				<div class="textInput">
-					<input type="text" placeholder="mm/dd/yyy">
-				    <span class="highlight"></span>
-				    <span class="bar"></span>
-				</div>
-				<span class="to">to</span>
-				<div class="textInput">
-					<input type="text" placeholder="mm/dd/yyy">
-				    <span class="highlight"></span>
-				    <span class="bar"></span>
-				</div>		
 			</div>
 			
 			<div class="displayContainer">

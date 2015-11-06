@@ -41,7 +41,7 @@ body {
 
 .searchButtonContainer {
 	position: absolute;
-	bottom: 8%;
+	bottom: 11%;
 	left: 360px;
 	background: none;
 }
@@ -80,27 +80,34 @@ body {
 	position: relative;
 }
 
+.criteriaContainer {
+	position: relative;
+	height: 15%;
+	width: 100%;
+	padding-top: 60px;
+	padding-left: 25px;
+}
+
+.criteriaContainer select {
+	font-weight:300;
+	color: black;
+	margin-left: 20px;
+	outline: none;
+}
 
 .categoriesContainer {
 	position: relative;
 	height: 70%;
 	width: 100%;
+	border-top: 2px solid #263237;
 	border-bottom: 2px solid #263237;
 	padding-left: 25px;
 	padding-top: 25px;
 }
-.datesContainer {
-	position: relative;
-	height: 18%;
-	width: 100%;
-	border-bottom: 2px solid #263237;
-	padding-left: 25px;
-	padding-top: 35px;
-}
 
 .displayContainer {
 	position: relative;
-	height: 12%;
+	height: 15%;
 	width: 100%;
 	padding-left: 25px;
 	padding-top: 40px;
@@ -269,31 +276,6 @@ body {
   to 	{ width:0; background:transparent; }
 }
 
-
-.datesContainer .categoryItem .labels{
-	font-size: 1em;
-}
-
-.datesContainer .categoryItem .checkbox {
-	top: -5px;
-}
-
-.datesContainer .textInput {
-	pposition: relative;
-	display: inline-block;
-	margin-top: 30px;
-	width: 40%;
-}
-
-.datesContainer .textInput input {
-	padding-left: 12px;
-}
-
-.to {
-	position: relative;
-	margin-left: -12px;
-	margin-right: 10px;
-}
 
 .displayContainer select {
 	font-weight:300;

@@ -70,6 +70,22 @@
 		<artifactId>spring-web</artifactId>
 		<version>4.1.6.RELEASE</version>
 	</dependency>
+	
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-youtube</artifactId>
+      <version>v3-rev151-1.20.0</version>
+    </dependency>
+    
+    <dependency>
+		<groupId>org.json</groupId>
+		<artifactId>json</artifactId>
+		<version>20140107</version>
+	</dependency>
+    
+
   </dependencies>
+  
+  
 
 </project>
