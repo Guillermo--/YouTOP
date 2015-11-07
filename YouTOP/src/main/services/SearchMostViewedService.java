@@ -25,7 +25,6 @@ public class SearchMostViewedService {
 		cats.add("10");
 		cats.add("1");
 		System.out.println(ss.getMostViewedByMultipleCategories(50, cats).toString(5));
-
 	}
 	
 	public SearchMostViewedService(){
