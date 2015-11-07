@@ -1,14 +1,13 @@
 package model;
 
 import java.io.IOException;
+import java.util.List;
 
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 
@@ -16,11 +15,9 @@ public class GVideo {
 
 	private static YouTube youtube;
 	private static String apiKey = Util.getAPIKey();
-	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-	private static final JsonFactory JSON_FACTORY = new JacksonFactory();
-	
+
 	public static String getVideoViewCount(String videoId) {
-		youtubeInit();
+		youtube = YouTubeUtil.youtubeInit();
 	    String viewCount = "";
 		try {
 			YouTube.Videos.List search = youtube.videos().list("statistics").setId(videoId).setKey(apiKey);
@@ -35,11 +32,28 @@ public class GVideo {
 		return viewCount;
 	}
 	
-	private static void youtubeInit() {
-		if(youtube == null) {
-			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
-		        public void initialize(HttpRequest request) throws IOException {}
-		    }).setApplicationName("YouTOP").build();
+	public static JSONArray sortVideosByViewCount(List<SearchResult> topVideos) {
+		JSONArray sortedTopVideos = new JSONArray();
+		for(int i = 0; i<topVideos.size(); i++) {
+			SearchResult currentObject = topVideos.get(i);
+			if(sortedTopVideos.length() < 1) {
+				sortedTopVideos.put(currentObject);
+			}
+			else {
+				long currentViewCount = Long.parseLong(currentObject.get("viewCount").toString());
+				for(int j = 0; j<sortedTopVideos.length(); j++) {
+					JSONObject iteratingSearchResult = (JSONObject) sortedTopVideos.get(j);
+					long iteratingViewCount = Long.parseLong((iteratingSearchResult.getString("viewCount")));
+					if(currentViewCount > iteratingViewCount) {
+						sortedTopVideos.put(j, currentObject);
+					}
+					else if (j+1 == sortedTopVideos.length()) {
+						sortedTopVideos.put(currentObject);
+						break;
+					}
+				}
+			}
 		}
+		return sortedTopVideos;
 	}
 }
