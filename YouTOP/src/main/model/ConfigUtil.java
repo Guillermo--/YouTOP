@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Util {
+public class ConfigUtil {
 	
 	private static String propertiesFile = "config.properties";
 

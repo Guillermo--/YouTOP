@@ -1,6 +1,6 @@
 package model;
 
-public class GVideoCategory {
+public class VideoCategoryUtil {
 	
 	public static void printAllVideoCategories() {
 		

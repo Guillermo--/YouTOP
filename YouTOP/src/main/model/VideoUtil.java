@@ -11,10 +11,10 @@ import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 
-public class GVideo {
+public class VideoUtil {
 
 	private static YouTube youtube;
-	private static String apiKey = Util.getAPIKey();
+	private static String apiKey = ConfigUtil.getAPIKey();
 
 	public static String getVideoViewCount(String videoId) {
 		youtube = YouTubeUtil.youtubeInit();
