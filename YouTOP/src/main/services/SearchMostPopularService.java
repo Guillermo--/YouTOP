@@ -6,12 +6,12 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 
-import model.Util;
+import model.ConfigUtil;
 import model.YouTubeUtil;
 
 public class SearchMostPopularService {
 	private static YouTube youtube;
-	private static String apiKey = Util.getAPIKey();
+	private static String apiKey = ConfigUtil.getAPIKey();
 	
 	public SearchMostPopularService(){
 		youtube = YouTubeUtil.youtubeInit();

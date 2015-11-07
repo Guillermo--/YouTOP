@@ -1,8 +1,9 @@
 package model;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
-
+import static org.boon.sort.Sorting.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -55,5 +56,11 @@ public class VideoUtil {
 			}
 		}
 		return sortedTopVideos;
+	}
+	
+	public static JSONArray boonSortVideosByViewCount(List<SearchResult> topVideos) {
+		sort(topVideos, "viewCount");
+		JSONArray topVideosJSON = new JSONArray(topVideos);
+		return topVideosJSON;
 	}
 }

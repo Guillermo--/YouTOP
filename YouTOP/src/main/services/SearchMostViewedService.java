@@ -9,22 +9,22 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 
-import model.GVideo;
-import model.Util;
+import model.VideoUtil;
+import model.ConfigUtil;
 import model.YouTubeUtil;
 
 
 public class SearchMostViewedService {
 
 	private static YouTube youtube;
-	private static String apiKey = Util.getAPIKey();
+	private static String apiKey = ConfigUtil.getAPIKey();
 	
 	public static void main(String[] args) {
 		SearchMostViewedService ss = new SearchMostViewedService();
 		List<String> cats = new ArrayList<String>();
 		cats.add("10");
 		cats.add("1");
-		System.out.println(ss.getMostViewedByMultipleCategories(2, cats).toString(5));
+		System.out.println(ss.getMostViewedByMultipleCategories(50, cats).toString(5));
 
 	}
 	
@@ -47,7 +47,7 @@ public class SearchMostViewedService {
 	        if(searchResultList != null) {   	
 	        	for(SearchResult searchResult : searchResultList) {
 	        		String videoId = searchResult.getId().getVideoId().toString();
-	        		String viewCount = GVideo.getVideoViewCount(videoId);
+	        		String viewCount = VideoUtil.getVideoViewCount(videoId);
 	        		searchResult.put("viewCount", viewCount);
 	        		jsonArray.put(searchResult);
 	        	}
@@ -75,7 +75,7 @@ public class SearchMostViewedService {
 	        if(searchResultList != null) {   	
 	        	for(SearchResult searchResult : searchResultList) {
 	        		String videoId = searchResult.getId().getVideoId().toString();
-	        		String viewCount = GVideo.getVideoViewCount(videoId);
+	        		String viewCount = VideoUtil.getVideoViewCount(videoId);
 	        		searchResult.put("viewCount", viewCount);
 	        		jsonArray.put(searchResult);
 	        	}
@@ -86,7 +86,7 @@ public class SearchMostViewedService {
         return jsonArray;
 	}
 	
-	public List<SearchResult> getMostViewedByCategorySearchList(long maxResults, String videoCategoryId) {
+	public List<SearchResult> getMostViewedByCategoryList(long maxResults, String videoCategoryId) {
 		List<SearchResult> searchResultList = new ArrayList<SearchResult>();
 		try {
 			YouTube.Search.List search = youtube.search().list("snippet");
@@ -102,7 +102,7 @@ public class SearchMostViewedService {
 	        if(searchResultList != null) {   	
 	        	for(SearchResult searchResult : searchResultList) {
 	        		String videoId = searchResult.getId().getVideoId().toString();
-	        		String viewCount = GVideo.getVideoViewCount(videoId);
+	        		String viewCount = VideoUtil.getVideoViewCount(videoId);
 	        		searchResult.put("viewCount", viewCount);
 	        	}
 	        }
@@ -128,7 +128,7 @@ public class SearchMostViewedService {
             if (searchResultList != null) {
                 for(SearchResult result : searchResultList) {
                 	String videoId = result.getId().getVideoId().toString();
-                	String viewCount = GVideo.getVideoViewCount(videoId);
+                	String viewCount = VideoUtil.getVideoViewCount(videoId);
                 	result.put("viewCount", viewCount);
                 	jsonArray.put(result);
                 }
@@ -142,15 +142,19 @@ public class SearchMostViewedService {
 
 	public JSONArray getMostViewedByMultipleCategories(long maxResults, List<String> categoryIds) {
 		List<SearchResult> topVideos = getMostViewedFromMultipleCategoriesUnsorted(maxResults, categoryIds);
-		JSONArray sortedTopVideos = GVideo.sortVideosByViewCount(topVideos);
-		return sortedTopVideos;
+		JSONArray sortedTopVideos = VideoUtil.boonSortVideosByViewCount(topVideos);
+		JSONArray sortedTopVideosFinal = new JSONArray();
+		for(int i = 0; i<maxResults; i++) {
+			sortedTopVideosFinal.put(sortedTopVideos.get(i));
+		}
+		return sortedTopVideosFinal;
 	}
 
 	private List<SearchResult> getMostViewedFromMultipleCategoriesUnsorted(long maxResults, List<String> categoryIds) {
 		List<SearchResult> topVideos = new ArrayList<SearchResult>();
 		for(int i = 0; i<categoryIds.size(); i++) {
 			String currentCategoryId = categoryIds.get(i);
-			List<SearchResult> temp = getMostViewedByCategorySearchList(maxResults, currentCategoryId);
+			List<SearchResult> temp = getMostViewedByCategoryList(maxResults, currentCategoryId);
 			if(temp != null) {
 				for(int j = 0; j<temp.size(); j++) {
 					topVideos.add(temp.get(j));

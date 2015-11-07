@@ -15,6 +15,7 @@ public class YouTubeUtil {
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	private static final JsonFactory JSON_FACTORY = new JacksonFactory();
 	public static YouTube youtube;
+	
 	public static YouTube youtubeInit() {
 		if(youtube == null) {
 			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
