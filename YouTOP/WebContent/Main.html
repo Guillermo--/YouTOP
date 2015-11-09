@@ -35,10 +35,10 @@
 <body ng-app="app">
 	<div class="mainContainer">
 		<div class="sideBarContainer">
-			<div class="criteriaContainer">
+			<div class="criteriaContainer" ng-controller="criteriaController">
 				<span class="criteria">Criteria</span>
-				<select>
-				  <option value="views" selected="selected">Most Viewed</option>
+				<select ng-model="dropdown" ng-change="chooseCriteria(dropdown)">
+				  <option value="views" selected>Most Viewed</option>
 				  <option value="likes">Most Liked</option>
 				</select>
 			</div>		
@@ -51,60 +51,60 @@
 					<span class="labels">All</span>	
 				</div>	
 				<div class="categoryItem">
-					<input type="checkbox" value="Autos and Vehicles" class="checkbox" ng-click='toggleSelection($event)'>
-					<span class="labels">Autos and Vehicles</span>	
+					<input type="checkbox" value="2" class="checkbox" ng-click='toggleSelection($event)'>
+					<span class="labels">Autos &amp; Vehicles</span>	
 				</div>	
 				<div class="categoryItem">
-					<input type="checkbox" value="Comedy" class="checkbox" ng-click='toggleSelection($event)'>
+					<input type="checkbox" value="23" class="checkbox" ng-click='toggleSelection($event)'>
 					<span class="labels">Comedy</span>	
 				</div>	
 				<div class="categoryItem">
-					<input type="checkbox" value="Education" class="checkbox" ng-click='toggleSelection($event)'>
+					<input type="checkbox" value="27" class="checkbox" ng-click='toggleSelection($event)'>
 					<span class="labels">Education</span>	
 				</div>			
 				<div class="categoryItem">
-					<input type="checkbox" value="Film and Animation" class="checkbox" ng-click='toggleSelection($event)'>
-					<span class="labels">Film & Animation</span>	
+					<input type="checkbox" value="1" class="checkbox" ng-click='toggleSelection($event)'>
+					<span class="labels">Film &amp; Animation</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" value="Gaming" class="checkbox">
+					<input type="checkbox" value="20" class="checkbox" ng-click='toggleSelection($event)'>
 					<span class="labels">Gaming</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" value="Howto and Style" class="checkbox">
-					<span class="labels">Howto & Style</span>	
+					<input type="checkbox" value="26" class="checkbox" ng-click='toggleSelection($event)'>
+					<span class="labels">How-to &amp; Style</span>	
 				</div>	
 				<div class="categoryItem">
-					<input type="checkbox" value="Music" class="checkbox">
+					<input type="checkbox" value="10" class="checkbox" ng-click='toggleSelection($event)'>
 					<span class="labels">Music</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" value="News and Politics" class="checkbox">
-					<span class="labels">News & Politics</span>	
+					<input type="checkbox" value="25" class="checkbox" ng-click='toggleSelection($event)'>
+					<span class="labels">News &amp; Politics</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" value="Nonprofits and Activism" class="checkbox">
-					<span class="labels">Nonprofits & Activism</span>	
+					<input type="checkbox" value="29" class="checkbox" ng-click='toggleSelection($event)'>
+					<span class="labels">Non-profits &amp; Activism</span>	
 				</div>	
 				<div class="categoryItem">
-					<input type="checkbox" value="People and Blogs" class="checkbox">
-					<span class="labels">People & Blogs</span>	
+					<input type="checkbox" value="22" class="checkbox" ng-click='toggleSelection($event)'>
+					<span class="labels">People &amp; Blogs</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" value="Pets and Animals" class="checkbox">
-					<span class="labels">Pets & Animals</span>	
+					<input type="checkbox" value="15" class="checkbox" ng-click='toggleSelection($event)'>
+					<span class="labels">Pets &amp; Animals</span>	
 				</div>	
 				<div class="categoryItem">
-					<input type="checkbox" value="Science and Technology" class="checkbox">
-					<span class="labels">Science & Technology</span>	
+					<input type="checkbox" value="28" class="checkbox" ng-click='toggleSelection($event)'>
+					<span class="labels">Science &amp; Technology</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" value="Sports" class="checkbox">
+					<input type="checkbox" value="17" class="checkbox" ng-click='toggleSelection($event)'>
 					<span class="labels">Sports</span>	
 				</div>		
 				<div class="categoryItem">
-					<input type="checkbox" value="Travel and Events" class="checkbox">
-					<span class="labels">Travel & Events</span>	
+					<input type="checkbox" value="19" class="checkbox" ng-click='toggleSelection($event)'>
+					<span class="labels">Travel &amp; Events</span>	
 				</div>	
 				
 																							
@@ -117,9 +117,9 @@
 			      
 			</div>
 			
-			<div class="displayContainer">
+			<div class="displayContainer" ng-controller="maxResultsController"> 
 				<span># Results</span>
-				<select>
+				<select ng-model="maxResults" ng-change="getMaxResults(maxResults)">
 				  <option value="10" selected="selected">10</option>
 				  <option value="25">25</option>
 				  <option value="50">50</option>
@@ -127,11 +127,13 @@
 				</select>
 			</div>
 		</div>
-		<div class="searchButtonContainer">
-			<button type="button">
+		<div class="searchButtonContainer" ng-controller="searchController">
+			<button type="button" ng-click="getSearchParameters()">
 				<span class="glyphicon glyphicon-play"></span>
 			</button>
 		</div>
+		
+		
 		<div class="searchResultsContainer">
 			<div class="resultsContainerTitle">Search Results</div>
 		</div>
