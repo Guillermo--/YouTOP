@@ -46,7 +46,7 @@ app.service('maxResultsService', function() {
 });
 
 app.service('keywordService', function() {
-	var selectedkeyword;
+	var selectedKeyword;
 	return {
 		setKeyword : function(event) {
 			selectedKeyword = event.target.value;
@@ -58,13 +58,22 @@ app.service('keywordService', function() {
 });
 
 app.service('searchService', function() {
-	//write service and controller for keyword search
-	//see if services for categories and keyword return something, if both return values
-	//find a way to only allow inputs for either category or keyword
-		//when checking a box, clear input text
-		//maybe search for a keyword in a category? :O
+	var possibleCriteria = ["views", "likes"];
+	var possibleMaxResults = ["10", "25", "50", "100"];
 	return {
-		determineSearch : function(criteria, categoriesOrKeyword, maxResults) {
+		validateInputs : function(criteria, categories, keyword, maxResults) {
+			alert("Criteria: "+criteria+"\nCategories: "+categories+"\nKeyword: "+keyword+"\nMaxresults: "+maxResults);
+			if(criteria == null || criteria.length === 0 || (possibleCriteria.indexOf(criteria) < 0)){
+				return "Invalid criteria.";
+			}
+			if((categories == null || categories == "") && (keyword == null || keyword == "")){
+				return "Must choose a category, or enter a keyword.";
+			}
+			if(maxResults == null || maxResults.length === 0 || (possibleMaxResults.indexOf(maxResults) < 0)) {
+				return "Invalid # Results";
+			}
+		},
+		doSearch : function (criteria, categories, keyword, maxResults) {
 			
 		}
 	}
@@ -98,14 +107,17 @@ app.controller('keywordController', function(keywordService, $scope){
 	}
 });
 
-app.controller('searchController', function(checkboxService, criteriaService, maxResultsService, keywordService, $scope) {
-	$scope.doSearch = function(){
+app.controller('searchController', function(checkboxService, criteriaService, maxResultsService, keywordService, searchService, $scope) {
+	$scope.startSearch = function(){
 		$scope.selectedCategories = checkboxService.getSelectedItems();
 		$scope.selectedCriteria = criteriaService.getCriteria();
 		$scope.maxResults = maxResultsService.getMaxResults();
 		$scope.keyword = keywordService.getKeyword();
-		alert($scope.keyword);
-
+				
+		$scope.validationStatus = 
+			searchService.validateInputs($scope.selectedCriteria, $scope.selectedCategories, $scope.keyword, $scope.maxResults);
+		
+		alert($scope.validationStatus);
 	}
 	
 });
