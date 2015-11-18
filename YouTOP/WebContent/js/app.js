@@ -57,12 +57,11 @@ app.service('keywordService', function() {
 	}
 });
 
-app.service('searchService', function() {
+app.service('searchService', function($http) {
 	var possibleCriteria = ["views", "likes"];
 	var possibleMaxResults = ["10", "25", "50", "100"];
 	return {
 		validateInputs : function(criteria, categories, keyword, maxResults) {
-			alert("Criteria: "+criteria+"\nCategories: "+categories+"\nKeyword: "+keyword+"\nMaxresults: "+maxResults);
 			if(criteria == null || criteria.length === 0 || (possibleCriteria.indexOf(criteria) < 0)){
 				return "Invalid criteria.";
 			}
@@ -72,9 +71,20 @@ app.service('searchService', function() {
 			if(maxResults == null || maxResults.length === 0 || (possibleMaxResults.indexOf(maxResults) < 0)) {
 				return "Invalid # Results";
 			}
+			else {
+				return "VALID";
+			}
 		},
+		
 		doSearch : function (criteria, categories, keyword, maxResults) {
-			
+			$http.get("./search.do", {
+					params : {
+						"criteria" : criteria, 
+						"categories" : categories, 
+						"keyword" : keyword, 
+						"maxResults" : maxResults}}).success(function(response) {
+								return response;
+			});
 		}
 	}
 });
@@ -116,8 +126,12 @@ app.controller('searchController', function(checkboxService, criteriaService, ma
 				
 		$scope.validationStatus = 
 			searchService.validateInputs($scope.selectedCriteria, $scope.selectedCategories, $scope.keyword, $scope.maxResults);
-		
-		alert($scope.validationStatus);
+		if($scope.validationStatus === "VALID") {
+			$scope.results = 
+				searchService.doSearch($scope.selectedCriteria, $scope.selectedCategories, $scope.keyword, $scope.maxResults);
+			
+			console.log($scope.results);
+		}
 	}
 	
 });

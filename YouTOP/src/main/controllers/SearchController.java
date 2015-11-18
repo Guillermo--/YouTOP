@@ -1,17 +1,19 @@
-package controllers;
+package controller;
 
 import java.util.Arrays;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import model.VideoResponse;
 import services.SearchMostPopularService;
 import services.SearchMostViewedService;
 
@@ -21,7 +23,20 @@ public class SearchController {
 
 	SearchMostViewedService service = new SearchMostViewedService();
 	
-	@RequestMapping("/search", method = RequestMethod.GET)
+	@RequestMapping(value = "hello", method = RequestMethod.GET)
+	@ResponseBody
+	public List<VideoResponse> helloWorld() {
+		VideoResponse video = new VideoResponse();
+		video.setId("123");
+		video.setTitle("fight video");
+		video.setUrl("youtube.com/123");
+		VideoResponse video2 = new VideoResponse();
+		video2.setId("456");
+		video2.setTitle("animals");
+		return Arrays.asList(video,video2);
+	}
+	
+	@RequestMapping("/search.do")
 	@ResponseBody
 	public ResponseEntity<String> doSearchProcess(
 			@RequestParam("criteria") String criteria,
@@ -41,7 +56,6 @@ public class SearchController {
 
 		return new ResponseEntity<String>(response.toString(), HttpStatus.OK);
 	}
-
 	
 	
 	private JSONObject doValidation(String criteria, List<String> categories, String keyword, long maxResults) {
