@@ -1,14 +1,12 @@
 package services;
+
+import static org.boon.sort.Sorting.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.json.JSONArray;
-
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
-
 import model.ConfigUtil;
 import model.GVideo;
 import model.JSONMapper;
@@ -24,9 +22,10 @@ public class SearchMostViewedService {
 	public static void main(String[] args) {
 		SearchMostViewedService ss = new SearchMostViewedService();
 		List<String> cats = new ArrayList<String>();
-		cats.add("10");
 		cats.add("1");
-		System.out.println(ss.getMostViewedAll(1).get(0).getSnippet().getTitle());
+		cats.add("10");
+		ss.getMostViewedByMultipleCategories(5, cats);
+		System.out.println("\n"+ss.getMostViewedAll(1).get(0).getViewCount());
 	}
 	
 	public SearchMostViewedService(){
@@ -60,8 +59,8 @@ public class SearchMostViewedService {
         return videoList;
 	}
 	
-	public JSONArray getMostViewedByCategory(long maxResults, String videoCategoryId) {
-	    JSONArray jsonArray = new JSONArray();
+	public List<GVideo> getMostViewedByCategory(long maxResults, String videoCategoryId) {
+	    List<GVideo> videoList = new ArrayList<GVideo>();
         try {
 			YouTube.Search.List search = youtube.search().list("snippet");
 			search.setKey(apiKey);
@@ -78,44 +77,28 @@ public class SearchMostViewedService {
 	        		String videoId = searchResult.getId().getVideoId().toString();
 	        		String viewCount = VideoUtil.getVideoViewCount(videoId);
 	        		searchResult.put("viewCount", viewCount);
-	        		jsonArray.put(searchResult);
+	        		GVideo gvideo = JSONMapper.mapJSONtoGVideo(searchResult.toString());
+	        		videoList.add(gvideo);
 	        	}
 	        }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        return jsonArray;
-	}
-	
-	public List<SearchResult> getMostViewedByCategoryList(long maxResults, String videoCategoryId) {
-		List<SearchResult> searchResultList = new ArrayList<SearchResult>();
-		try {
-			YouTube.Search.List search = youtube.search().list("snippet");
-			search.setKey(apiKey);
-			search.setOrder("viewCount");
-			search.setVideoCategoryId(videoCategoryId);
-			search.setMaxResults(maxResults);
-			search.setType("video");
-			
-	        SearchListResponse searchResponse = search.execute();
-	        searchResultList = searchResponse.getItems();
-	        
-	        if(searchResultList != null) {   	
-	        	for(SearchResult searchResult : searchResultList) {
-	        		String videoId = searchResult.getId().getVideoId().toString();
-	        		String viewCount = VideoUtil.getVideoViewCount(videoId);
-	        		searchResult.put("viewCount", viewCount);
-	        	}
-	        }
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return searchResultList;
+        return videoList;
 	}
 
-	public JSONArray getMostViewedByKeyword(long maxResults, String keyword) {
-        JSONArray jsonArray = new JSONArray();
+	public List<GVideo> getMostViewedByMultipleCategories(long maxResults, List<String> categoryIds) {
+		List<GVideo> topVideos = getMostViewedFromMultipleCategoriesUnsorted(maxResults, categoryIds);
+		List<GVideo> sortedTopVideosFinal = new ArrayList<GVideo>();
+		sortDesc(topVideos, "viewCount");
+		for(int i = 0 ; i<maxResults; i++) {
+			sortedTopVideosFinal.add(topVideos.get(i));
+		}
+		return sortedTopVideosFinal;
+	}
+	
+	public List<GVideo> getMostViewedByKeyword(long maxResults, String keyword) {
+        List<GVideo> videoList = new ArrayList<GVideo>();
 		try {
 			YouTube.Search.List search = youtube.search().list("id,snippet");
 			search.setKey(apiKey);
@@ -131,31 +114,22 @@ public class SearchMostViewedService {
                 	String videoId = result.getId().getVideoId().toString();
                 	String viewCount = VideoUtil.getVideoViewCount(videoId);
                 	result.put("viewCount", viewCount);
-                	jsonArray.put(result);
+	        		GVideo gvideo = JSONMapper.mapJSONtoGVideo(result.toString());
+                	videoList.add(gvideo);
                 }
             }
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return jsonArray;
+		return videoList;
 	}
 
-	public JSONArray getMostViewedByMultipleCategories(long maxResults, List<String> categoryIds) {
-		List<SearchResult> topVideos = getMostViewedFromMultipleCategoriesUnsorted(maxResults, categoryIds);
-		JSONArray sortedTopVideos = VideoUtil.boonSortVideosByViewCount(topVideos);
-		JSONArray sortedTopVideosFinal = new JSONArray();
-		for(int i = 0; i<maxResults; i++) {
-			sortedTopVideosFinal.put(sortedTopVideos.get(i));
-		}
-		return sortedTopVideosFinal;
-	}
-
-	private List<SearchResult> getMostViewedFromMultipleCategoriesUnsorted(long maxResults, List<String> categoryIds) {
-		List<SearchResult> topVideos = new ArrayList<SearchResult>();
+	private List<GVideo> getMostViewedFromMultipleCategoriesUnsorted(long maxResults, List<String> categoryIds) {
+		List<GVideo> topVideos = new ArrayList<GVideo>();
 		for(int i = 0; i<categoryIds.size(); i++) {
 			String currentCategoryId = categoryIds.get(i);
-			List<SearchResult> temp = getMostViewedByCategoryList(maxResults, currentCategoryId);
+			List<GVideo> temp = getMostViewedByCategory(maxResults, currentCategoryId);
 			if(temp != null) {
 				for(int j = 0; j<temp.size(); j++) {
 					topVideos.add(temp.get(j));

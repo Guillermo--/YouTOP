@@ -1,11 +1,8 @@
 package model;
 
-import static org.boon.sort.Sorting.sort;
 import java.io.IOException;
-import java.util.List;
-import org.json.JSONArray;
+
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 
@@ -30,9 +27,4 @@ public class VideoUtil {
 		return viewCount;
 	}
 		
-	public static JSONArray boonSortVideosByViewCount(List<SearchResult> videos) {
-		sort(videos, "viewCount");
-		JSONArray topVideosJSON = new JSONArray(videos);
-		return topVideosJSON;
-	}
 }

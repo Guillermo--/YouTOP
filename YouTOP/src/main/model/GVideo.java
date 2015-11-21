@@ -6,7 +6,7 @@ public class GVideo {
 	private Id id;
 	private String kind;
 	private String etag;
-	private String viewCount;
+	private long viewCount;
 	
 	public class Snippet {
 		private String publishedAt;
@@ -62,7 +62,6 @@ public class GVideo {
 		}
 		
 	}
-	
 	public class Thumbnails {
 		private DefaultDef defaultDef;
 		private HighDef highDef;
@@ -123,7 +122,6 @@ public class GVideo {
 			this.mediumDef = mediumDef;
 		}
 	}
-	
 	public class Id {
 		private String kind;
 		private String videoId;
@@ -175,12 +173,19 @@ public class GVideo {
 		this.etag = etag;
 	}
 
-	public String getViewCount() {
+	public long getViewCount() {
 		return viewCount;
 	}
 
-	public void setViewCount(String viewCount) {
+	public void setViewCount(long viewCount) {
 		this.viewCount = viewCount;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "GVideo [snippet=" + snippet + ", id=" + id + ", kind=" + kind + ", etag=" + etag + ", viewCount="
+				+ viewCount + "]";
 	}
 
 }
