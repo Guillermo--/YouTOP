@@ -1,18 +1,19 @@
 package controller;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import model.GVideo;
 import model.Validator;
-import model.VideoResponse;
 import services.SearchMostViewedService;
 
 
@@ -21,18 +22,18 @@ public class SearchController {
 
 	SearchMostViewedService service = new SearchMostViewedService();
 	
-	@RequestMapping(value = "hello", method = RequestMethod.GET)
-	@ResponseBody
-	public List<VideoResponse> helloWorld() {
-		VideoResponse video = new VideoResponse();
-		video.setId("123");
-		video.setTitle("fight video");
-		video.setUrl("youtube.com/123");
-		VideoResponse video2 = new VideoResponse();
-		video2.setId("456");
-		video2.setTitle("animals");
-		return Arrays.asList(video,video2);
-	}
+//	@RequestMapping(value = "hello", method = RequestMethod.GET)
+//	@ResponseBody
+//	public List<GVideo> helloWorld() {
+//		GVideo video = new GVideo();
+//		video.setId("123");
+//		video.setTitle("fight video");
+//		video.setUrl("youtube.com/123");
+//		GVideo video2 = new GVideo();
+//		video2.setId("456");
+//		video2.setTitle("animals");
+//		return Arrays.asList(video,video2);
+//	}
 	
 	@RequestMapping("/search.do")
 	@ResponseBody
@@ -50,9 +51,9 @@ public class SearchController {
 		}
 		
 		String searchType = determineSearchType(criteria, categories, keyword);
-		JSONArray response = executeSearch(searchType, categories, keyword, maxResults);
+		List<GVideo> response = executeSearch(searchType, categories, keyword, maxResults);
 		
-		System.out.println(response.toString(5));
+		System.out.println(response.toString());
 		return new ResponseEntity<String>(response.toString(), HttpStatus.OK);
 	}
 	
@@ -99,21 +100,19 @@ public class SearchController {
 		return searchType;
 	}
 
-	public JSONArray executeSearch(String searchType, List<String> categories, String keyword, long maxResults) {
+	public List<GVideo> executeSearch(String searchType, List<String> categories, String keyword, long maxResults) {
 		System.out.println("Executing search...");
 		
 		SearchMostViewedService searchViews = new SearchMostViewedService();
-		JSONArray response = new JSONArray();
+		List<GVideo> response = new ArrayList<GVideo>();
 		if(searchType.contains("views") && searchType.contains("category")) {
 			if(categories.contains("All")){
 				response = searchViews.getMostViewedAll(maxResults);
 			}
 			else{
-				response = searchViews.getMostViewedByCategory(maxResults, categories.get(0));
 			}
 		}
 		else if(searchType.contains("views") && searchType.contains("keyword")){
-			response = searchViews.getMostViewedByKeyword(maxResults, keyword);
 		}
 		
 		return response;

@@ -1,16 +1,19 @@
 package services;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.api.services.youtube.model.SearchResult;
+
+import model.GVideo;
 
 public class SearchMostViewedServiceTest {
 
@@ -19,12 +22,12 @@ public class SearchMostViewedServiceTest {
 	@Test
 	public void testGetMostViewedAll() {
 		long maxResults = 2;
-		JSONArray actualResult = search.getMostViewedAll(maxResults);
-		long viewCountFirst = Long.parseLong(actualResult.getJSONObject(0).get("viewCount").toString());
-		long viewCountSecond = Long.parseLong(actualResult.getJSONObject(1).get("viewCount").toString());
+		List<GVideo> actualResult = search.getMostViewedAll(maxResults);
+		long viewCountFirst = Long.parseLong(actualResult.get(0).getViewCount());
+		long viewCountSecond = Long.parseLong(actualResult.get(1).getViewCount());
 		
 		assertNotNull(actualResult);
-		assertEquals(maxResults, actualResult.length());
+		assertEquals(maxResults, actualResult.size());
 		assertTrue(viewCountFirst > viewCountSecond);
 	}
 	
