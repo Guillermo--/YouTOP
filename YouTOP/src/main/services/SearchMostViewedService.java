@@ -1,13 +1,13 @@
 package services;
 
-import static org.boon.sort.Sorting.*;
+import static org.boon.sort.Sorting.sortDesc;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
-import model.ConfigUtil;
 import model.GVideo;
 import model.JSONMapper;
 import model.VideoUtil;
@@ -17,7 +17,7 @@ import model.YouTubeUtil;
 public class SearchMostViewedService {
 
 	private static YouTube youtube;
-	private static String apiKey = ConfigUtil.getAPIKey();
+	private String apiKey;
 	
 	public static void main(String[] args) {
 		SearchMostViewedService ss = new SearchMostViewedService();
