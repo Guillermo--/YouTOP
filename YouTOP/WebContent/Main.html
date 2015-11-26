@@ -33,11 +33,13 @@
 
 
 <body ng-app="app">
+	
+
 	<div class="mainContainer">
 		<div class="sideBarContainer">
 			<div class="criteriaContainer" ng-controller="criteriaController">
 				<span class="criteria">Criteria</span>
-				<select ng-model="dropdown" ng-change="chooseCriteria(dropdown)">
+				<select ng-model="criteria" ng-init="criteria='views'" ng-change="chooseCriteria(criteria)">
 					<option value="views" ng-selected="true">Most Viewed</option>
 					<option value="likes">Most Liked</option>
 				</select>
@@ -119,7 +121,7 @@
 			
 			<div class="displayContainer" ng-controller="maxResultsController"> 
 				<span># Results</span>
-				<select ng-model="maxResults" ng-change="getMaxResults(maxResults)">
+				<select ng-model="maxResults" ng-init="maxResults='10'" ng-change="getMaxResults(maxResults)">
 				  <option value="10" ng-selected="true">10</option>
 				  <option value="25">25</option>
 				  <option value="50">50</option>
@@ -127,6 +129,7 @@
 				</select>
 			</div>
 		</div>
+		
 		<div class="searchButtonContainer" ng-controller="searchController">
 			<button type="button" ng-click="startSearch()">
 				<span class="glyphicon glyphicon-play"></span>
@@ -134,8 +137,9 @@
 		</div>
 		
 		
-		<div class="searchResultsContainer">
+		<div class="searchResultsContainer" ng-controller="displayResultsController">
 			<div class="resultsContainerTitle">Search Results</div>
+			<div>Results: {{searchResults}}</div>
 		</div>
 	</div>
 </body>

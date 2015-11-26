@@ -52,8 +52,12 @@ public class SearchMostViewedServiceTest {
 	public void testGetMostViewedByKeyword() {
 		long maxResults = 2;
 		List<GVideo> actualResult = search.getMostViewedByKeyword(maxResults, "dog");
+		long viewCountFirst = actualResult.get(0).getViewCount();
+		long viewCountSecond = actualResult.get(1).getViewCount();
+		
 		assertNotNull(actualResult);
 		assertEquals(maxResults, actualResult.size());
+		assertTrue(viewCountFirst > viewCountSecond);
 	}
 	
 	@Test

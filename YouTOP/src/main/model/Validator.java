@@ -38,7 +38,7 @@ public class Validator {
 	
 	public static JSONObject validateCategoriesAndKeyword(List<String> categories, String keyword) {
 		JSONObject validationMessage = new JSONObject();
-		if(categories.size() == 0 && (keyword == null || keyword.isEmpty())){
+		if((categories == null || categories.size() == 0) && (keyword == null || keyword.isEmpty())){
 			validationMessage.put("isValid", false);
 			validationMessage.put("message", "Please select a category or enter a keyword.");
 		}

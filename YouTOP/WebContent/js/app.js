@@ -62,6 +62,10 @@ app.service('searchService', function($http) {
 	var possibleMaxResults = ["10", "25", "50", "100"];
 	return {
 		validateInputs : function(criteria, categories, keyword, maxResults) {
+			console.log("Criteria:" +criteria);
+			console.log("Categories: "+categories);
+			console.log("Keyword: "+keyword);
+			console.log("maxResults: "+maxResults);
 			if(criteria == null || criteria.length === 0 || (possibleCriteria.indexOf(criteria) < 0)){
 				return "Invalid criteria.";
 			}
@@ -77,20 +81,20 @@ app.service('searchService', function($http) {
 		},
 		
 		doSearch : function (criteria, categories, keyword, maxResults) {
-			$http.get("./search.do", {
+			return $http.get("./search.do", {
 					params : {
 						"criteria" : criteria, 
 						"categories" : categories, 
 						"keyword" : keyword, 
-						"maxResults" : maxResults}}).success(function(response) {
-								return response;
-			});
+						"maxResults" : maxResults
+			}});
 		}
 	}
 });
 
 
 //-------------------------------CONTROLLERS-------------------------------
+
 
 
 app.controller('checkboxController', function(checkboxService, $scope) {
@@ -100,12 +104,20 @@ app.controller('checkboxController', function(checkboxService, $scope) {
 });
 
 app.controller('criteriaController', function(criteriaService, $scope) {
+	angular.element(document).ready(function () {
+		criteriaService.setCriteria($scope.criteria);
+    });
+	
 	$scope.chooseCriteria = function(selectedCriteria) {
 		criteriaService.setCriteria(selectedCriteria);
 	}
 });
 
 app.controller('maxResultsController', function(maxResultsService, $scope){
+	angular.element(document).ready(function () {
+		maxResultsService.setMaxResults($scope.maxResults);
+    });
+	
 	$scope.getMaxResults = function(maxResults) {
 		maxResultsService.setMaxResults(maxResults);
 	}
@@ -117,7 +129,7 @@ app.controller('keywordController', function(keywordService, $scope){
 	}
 });
 
-app.controller('searchController', function(checkboxService, criteriaService, maxResultsService, keywordService, searchService, $scope) {
+app.controller('searchController', function(checkboxService, criteriaService, maxResultsService, keywordService, searchService, $scope, $rootScope) {
 	$scope.startSearch = function(){
 		$scope.selectedCategories = checkboxService.getSelectedItems();
 		$scope.selectedCriteria = criteriaService.getCriteria();
@@ -126,13 +138,20 @@ app.controller('searchController', function(checkboxService, criteriaService, ma
 				
 		$scope.validationStatus = 
 			searchService.validateInputs($scope.selectedCriteria, $scope.selectedCategories, $scope.keyword, $scope.maxResults);
+		
 		if($scope.validationStatus === "VALID") {
-			$scope.results = 
-				searchService.doSearch($scope.selectedCriteria, $scope.selectedCategories, $scope.keyword, $scope.maxResults);
-			
-			console.log($scope.results);
+			var promise = searchService.doSearch($scope.selectedCriteria, $scope.selectedCategories, $scope.keyword, $scope.maxResults);
+			promise.then(function(response){
+				$rootScope.$broadcast('searchResultsObtained', response.data);
+			});
 		}
 	}
-	
+});
+
+app.controller('displayResultsController', function($scope, $rootScope){
+	$rootScope.$on('searchResultsObtained', function(event, response){
+		$scope.searchResults = response;
+		console.log("Response received: ", $scope.searchResults);
+	});
 });
 
