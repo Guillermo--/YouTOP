@@ -286,5 +286,34 @@ body {
 
 .resultsContainerTitle {
 	font-size: 2em;
+	margin-bottom: 40px;
 	font-weight: 300;
 }
+
+.resultItem {
+	position: relative;
+	max-width: 45%;
+	min-width: 45%;
+	margin-bottom: 10px;
+	font-size: 1.5em;
+}
+
+.resultItem img {
+	position: relative;
+	vertical-align: middle;
+}
+
+.resultItemInfo {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	margin-left: 10px;
+	width: 70%;
+}
+
+.resultItemTitle {
+	font-weight: 300;
+}
+
+
+

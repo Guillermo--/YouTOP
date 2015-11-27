@@ -42,10 +42,7 @@ public class SearchController {
 		
 		String searchType = determineSearchType(criteria, categories, keyword);
 		List<GVideo> response = executeSearch(searchType, categories, keyword, maxResults);
-		
-		for(GVideo video : response) {
-			System.out.println(video.getSnippet().getTitle());
-		}
+	
 		
 		return response;
 	}

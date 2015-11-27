@@ -5,11 +5,10 @@ import java.util.List;
 import org.json.JSONObject;
 
 public class Validator {
-	final List<String> validCriteria = Arrays.asList("likes", "views");
-	final List<String> validMaxResults = Arrays.asList("10", "25", "50", "100");
+	final static List<String> validCriteria = Arrays.asList("likes", "views");
+	final static List<String> validMaxResults = Arrays.asList("5","10", "25", "50");
 
 	public static JSONObject validateMaxResults(long maxResults) {
-		List<String> validMaxResults = Arrays.asList("10", "25", "50", "100");
 		JSONObject validationMessage = new JSONObject();
 		if(String.valueOf(maxResults) == null || 
 				String.valueOf(maxResults).isEmpty() || 
@@ -24,7 +23,6 @@ public class Validator {
 	}
 	
 	public static JSONObject validateCriteria(String criteria) {
-		List<String> validCriteria = Arrays.asList("likes", "views");
 		JSONObject validationMessage = new JSONObject();
 		if(criteria == null || criteria.isEmpty() || (!validCriteria.contains(criteria))) {
 			validationMessage.put("isValid", false);

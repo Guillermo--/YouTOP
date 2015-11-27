@@ -59,7 +59,7 @@ app.service('keywordService', function() {
 
 app.service('searchService', function($http) {
 	var possibleCriteria = ["views", "likes"];
-	var possibleMaxResults = ["10", "25", "50", "100"];
+	var possibleMaxResults = ["5","10", "25", "50"];
 	return {
 		validateInputs : function(criteria, categories, keyword, maxResults) {
 			console.log("Criteria:" +criteria);

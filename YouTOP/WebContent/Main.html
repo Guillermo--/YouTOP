@@ -121,11 +121,11 @@
 			
 			<div class="displayContainer" ng-controller="maxResultsController"> 
 				<span># Results</span>
-				<select ng-model="maxResults" ng-init="maxResults='10'" ng-change="getMaxResults(maxResults)">
-				  <option value="10" ng-selected="true">10</option>
+				<select ng-model="maxResults" ng-init="maxResults='5'" ng-change="getMaxResults(maxResults)">
+				  <option value="5" ng-selected="true">5</option>
+				  <option value="10">10</option>
 				  <option value="25">25</option>
 				  <option value="50">50</option>
-				  <option value="100">100</option>
 				</select>
 			</div>
 		</div>
@@ -139,7 +139,13 @@
 		
 		<div class="searchResultsContainer" ng-controller="displayResultsController">
 			<div class="resultsContainerTitle">Search Results</div>
-			<div>Results: {{searchResults}}</div>
+			<div class="resultItem" ng-repeat="resultItem in searchResults">
+				<img src="{{resultItem.snippet.thumbnails.defaultUrl}}"/>
+				<div class="resultItemInfo">
+					<div class="resultItemTitle">{{resultItem.snippet.title}}</div>
+					<div class="resultItemViewCount">{{resultItem.viewCount | number}} views</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

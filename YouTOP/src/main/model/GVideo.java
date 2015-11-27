@@ -16,7 +16,6 @@ public class GVideo {
 		private String channelId;
 		private String channelTitle;
 		private String liveBroadcastContent;
-		
 
 		public String getDescription() {
 			return description;
@@ -61,67 +60,56 @@ public class GVideo {
 			this.publishedAt = publishedAt;
 		}
 		
-	}
-	public class Thumbnails {
-		private DefaultDef defaultDef;
-		private HighDef highDef;
-		private MediumDef mediumDef;
-		
-		public class DefaultDef {
-			String url;
+		public class Thumbnails {
+			private String defaultUrl;
+			private High high;
+			private Medium medium;
+						
+			public class High {
+				String url;
 
-			public String getUrl() {
-				return url;
-			}
+				public String getUrl() {
+					return url;
+				}
 
-			public void setUrl(String url) {
-				this.url = url;
+				public void setUrl(String url) {
+					this.url = url;
+				}
 			}
-		}
-		
-		public class HighDef {
-			String url;
+			
+			public class Medium {
+				String url;
 
-			public String getUrl() {
-				return url;
-			}
+				public String getUrl() {
+					return url;
+				}
 
-			public void setUrl(String url) {
-				this.url = url;
+				public void setUrl(String url) {
+					this.url = url;
+				}
 			}
-		}
-		
-		public class MediumDef {
-			String url;
-
-			public String getUrl() {
-				return url;
+			
+			public High getHigh() {
+				return high;
 			}
-
-			public void setUrl(String url) {
-				this.url = url;
+			public void setHigh(High high) {
+				this.high = high;
 			}
-		}
-		
-		public DefaultDef getDefaultDef() {
-			return defaultDef;
-		}
-		public void setDefaultDef(DefaultDef defaultDef) {
-			this.defaultDef = defaultDef;
-		}
-		public HighDef getHighDef() {
-			return highDef;
-		}
-		public void setHighDef(HighDef highDef) {
-			this.highDef = highDef;
-		}
-		public MediumDef getMediumDef() {
-			return mediumDef;
-		}
-		public void setMediumDef(MediumDef mediumDef) {
-			this.mediumDef = mediumDef;
+			public Medium getMedium() {
+				return medium;
+			}
+			public void setMedium(Medium medium) {
+				this.medium = medium;
+			}
+			public String getDefaultUrl() {
+				return defaultUrl;
+			}
+			public void setDefaultUrl(String defaultUrl) {
+				this.defaultUrl = defaultUrl;
+			}
 		}
 	}
+	
 	public class Id {
 		private String kind;
 		private String videoId;

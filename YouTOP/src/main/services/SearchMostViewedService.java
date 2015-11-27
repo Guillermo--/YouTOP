@@ -50,7 +50,9 @@ public class SearchMostViewedService {
 	        	for(SearchResult searchResult : searchResultList) {
 	        		String videoId = searchResult.getId().getVideoId().toString();
 	        		String viewCount = VideoUtil.getVideoViewCount(videoId);
+	        		String defaultThumb = searchResult.getSnippet().getThumbnails().getDefault().getUrl().toString();
 	        		searchResult.put("viewCount", viewCount);
+	        		searchResult.getSnippet().getThumbnails().put("defaultUrl", defaultThumb);
 	        		GVideo gvideo = JSONMapper.mapJSONtoGVideo(searchResult.toString());
 	        		videoList.add(gvideo);
 	        	}
@@ -79,6 +81,8 @@ public class SearchMostViewedService {
 	        		String videoId = searchResult.getId().getVideoId().toString();
 	        		String viewCount = VideoUtil.getVideoViewCount(videoId);
 	        		searchResult.put("viewCount", viewCount);
+	        		String defaultThumb = searchResult.getSnippet().getThumbnails().getDefault().getUrl().toString();
+	        		searchResult.getSnippet().getThumbnails().put("defaultUrl", defaultThumb);
 	        		GVideo gvideo = JSONMapper.mapJSONtoGVideo(searchResult.toString());
 	        		videoList.add(gvideo);
 	        	}
@@ -116,6 +120,8 @@ public class SearchMostViewedService {
                 	String videoId = result.getId().getVideoId().toString();
                 	String viewCount = VideoUtil.getVideoViewCount(videoId);
                 	result.put("viewCount", viewCount);
+	        		String defaultThumb = result.getSnippet().getThumbnails().getDefault().getUrl().toString();
+	        		result.getSnippet().getThumbnails().put("defaultUrl", defaultThumb);
 	        		GVideo gvideo = JSONMapper.mapJSONtoGVideo(result.toString());
                 	videoList.add(gvideo);
                 }
