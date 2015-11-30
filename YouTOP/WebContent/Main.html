@@ -139,11 +139,15 @@
 		
 		<div class="searchResultsContainer" ng-controller="displayResultsController">
 			<div class="resultsContainerTitle">Search Results</div>
-			<div class="resultItem" ng-repeat="resultItem in searchResults">
-				<img src="{{resultItem.snippet.thumbnails.defaultUrl}}"/>
-				<div class="resultItemInfo">
-					<div class="resultItemTitle">{{resultItem.snippet.title}}</div>
-					<div class="resultItemViewCount">{{resultItem.viewCount | number}} views</div>
+			<div class="leftColumn">
+				<div class="resultItem" ng-repeat="resultItem in searchResults">
+					<div class="index">{{searchResults.indexOf(resultItem) + 1}}.</div>
+					<img src="{{resultItem.snippet.thumbnails.medium.url}}"/>
+					<div class="resultItemInfo">
+						<div class="resultItemTitle">{{resultItem.snippet.title}}</div>
+						<div class="resultItemChannel">{{resultItem.snippet.channelTitle}}</div>
+						<div class="resultItemViewCount">{{resultItem.viewCount | number}} views</div>
+					</div>
 				</div>
 			</div>
 		</div>

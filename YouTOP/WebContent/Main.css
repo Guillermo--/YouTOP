@@ -29,7 +29,7 @@ body {
 }
 
 .sideBarContainer{
-	position: relative;
+	position: fixed;
 	height: 100%;
 	width: 400px;
 	min-width: 400px;
@@ -40,7 +40,7 @@ body {
 }
 
 .searchButtonContainer {
-	position: absolute;
+	position: fixed;
 	bottom: 11%;
 	left: 360px;
 	background: none;
@@ -64,12 +64,16 @@ body {
 	position: relative;
 	background: #FFFFFF;
 	color: black;
-	padding: 40px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	padding-left: 80px;
+	padding-right: 80px;
 	margin-left: 480px;
 	margin-top: 2%;
 	margin-bottom: 2%;
 	margin-right: 4%;
-	height: 92%;
+	min-height: 92%;
+	min-width: 50%;
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
@@ -290,30 +294,54 @@ body {
 	font-weight: 300;
 }
 
+.leftColumn {
+	vertical-align: top;
+	min-width: 70%;
+	width: 100%;
+	position: relative;
+	display: inline-block;
+}
+
 .resultItem {
 	position: relative;
-	max-width: 45%;
-	min-width: 45%;
-	margin-bottom: 10px;
 	font-size: 1.5em;
+	border-bottom: 1px solid #cccccc;
+	height: 130px;
+	display: flex;
+	align-items: center;
 }
 
 .resultItem img {
 	position: relative;
+	display: inline-block;
 	vertical-align: middle;
+	margin-left: 20px;
+	min-width: 150px;
+	width: 15%;
+	height: auto;
 }
 
 .resultItemInfo {
 	display: inline-block;
 	position: relative;
 	vertical-align: middle;
-	margin-left: 10px;
-	width: 70%;
+	margin-left: 20px;
+	width: 40%;
 }
 
 .resultItemTitle {
 	font-weight: 300;
+	white-space: nowrap;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
-
+.index {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 1.5em;
+	width: 40px;
+}
 

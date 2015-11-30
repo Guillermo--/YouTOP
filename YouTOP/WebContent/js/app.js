@@ -93,6 +93,7 @@ app.service('searchService', function($http) {
 });
 
 
+
 //-------------------------------CONTROLLERS-------------------------------
 
 
@@ -151,7 +152,6 @@ app.controller('searchController', function(checkboxService, criteriaService, ma
 app.controller('displayResultsController', function($scope, $rootScope){
 	$rootScope.$on('searchResultsObtained', function(event, response){
 		$scope.searchResults = response;
-		console.log("Response received: ", $scope.searchResults);
 	});
 });
 
