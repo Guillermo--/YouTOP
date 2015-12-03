@@ -13,9 +13,7 @@ body {
 	font-family: 'Roboto';
 	font-weight: 100;
 	height: 100%;
-	min-height: 700px;
 	width: 100%;
-	min-width: 950px;
 	padding: 0px;
 	margin: 0px;
 }
@@ -24,6 +22,9 @@ body {
 	position: relative;
 	height: 100%;
 	width: 100%;
+	min-width: 900px;
+	min-height: 770px;
+	min-width: 1000px;
 	background-color: #CFD8DC;
 	overflow: auto;
 }
@@ -31,18 +32,21 @@ body {
 .sideBarContainer{
 	position: fixed;
 	height: 100%;
-	width: 400px;
-	min-width: 400px;
+	min-height: 770px;
+	width: 20%;
+	min-width: 350px;
 	background-color: #37474F;
-	float: left;
 	box-shadow: 4px 0px 6px rgba(0,0,0,0.16), 3px 0px 3px rgba(0,0,0,0.23);
 	font-size: 1.5em;
+	display: flex;
+	flex-direction: column;
 }
 
 .searchButtonContainer {
 	position: fixed;
 	bottom: 11%;
-	left: 360px;
+	width: 22%;
+	min-width: 390px;
 	background: none;
 }
 
@@ -53,6 +57,7 @@ body {
 	border-radius: 50%;
 	background: #C52800;
 	border: none;
+	float: right;
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
@@ -68,12 +73,11 @@ body {
 	padding-bottom: 50px;
 	padding-left: 80px;
 	padding-right: 80px;
-	margin-left: 480px;
+	margin-right: 4%;
+	margin-left: 460px;
 	margin-top: 2%;
 	margin-bottom: 2%;
-	margin-right: 4%;
 	min-height: 92%;
-	min-width: 50%;
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
@@ -87,9 +91,11 @@ body {
 .criteriaContainer {
 	position: relative;
 	height: 15%;
+	min-height: 70px;
 	width: 100%;
-	padding-top: 60px;
 	padding-left: 25px;
+	display: flex;
+	align-items: center;
 }
 
 .criteriaContainer select {
@@ -102,19 +108,24 @@ body {
 .categoriesContainer {
 	position: relative;
 	height: 70%;
+	min-height: 630px;
 	width: 100%;
 	border-top: 2px solid #263237;
 	border-bottom: 2px solid #263237;
 	padding-left: 25px;
 	padding-top: 25px;
+	display: flex;
+	flex-direction: column;
 }
 
 .displayContainer {
 	position: relative;
 	height: 15%;
+	min-height: 70px;
 	width: 100%;
 	padding-left: 25px;
-	padding-top: 40px;
+	display: flex;
+	align-items: center;
 }
 
 .categoryItem {
