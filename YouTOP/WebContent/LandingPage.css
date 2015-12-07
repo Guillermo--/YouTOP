@@ -56,6 +56,10 @@ body {
 	margin-top: 5%;
 }
 
+.buttonContainer button:focus {
+	outline: none;
+}
+
 .buttonContent { 
 	position: relative;
 	display: block;

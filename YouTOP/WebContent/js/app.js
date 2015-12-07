@@ -1,4 +1,23 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['ngRoute']);
+
+app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+	$routeProvider  
+	.when('/YouTOP', {
+        templateUrl: 'YouTOP/pages/landingPage.html'
+	})
+	.when('/YouTOP/main', {
+        templateUrl : './pages/main.html'
+	})
+    .otherwise({
+    	redirectTo : '/'
+    });
+
+	$locationProvider.html5Mode({
+		enabled: true,
+		requireBase: false
+	});
+}]);
+
 
 //----------------------------------SERVICES--------------------------------------
 
@@ -155,3 +174,10 @@ app.controller('displayResultsController', function($scope, $rootScope){
 	});
 });
 
+//------------------------- ROUTING FUNCTIONS ----------------------------
+
+app.controller('routeController', function($scope, $location){
+	$scope.go = function(path) {
+		$location.path(path);
+	}
+});

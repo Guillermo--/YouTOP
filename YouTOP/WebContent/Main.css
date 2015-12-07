@@ -61,6 +61,9 @@ body {
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
+.glyphicon-play{
+	color: white;
+}
 .searchButtonContainer button:focus {
 	outline: none;
 }
@@ -344,6 +347,11 @@ body {
 	font-weight: 300;
 	white-space: nowrap;
 	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.resultItemChannel {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }

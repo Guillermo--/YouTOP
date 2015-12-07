@@ -12,6 +12,9 @@
 			crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="LandingPage.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.js"></script>
+	<script src="js/app.js"></script>
 	
 	<script>
 	$(document).ready(function(){
@@ -30,7 +33,7 @@
 </head>
 
 
-<body>
+<body ng-app="app">
 	<div class="mainContainer">
 		<div class="messageContainer">
 			<div class="salutation">Hi!</div>
@@ -39,8 +42,8 @@
 				Here you can search for YouTube's most popular videos, based on different criteria. 
 			</div>
 		</div>
-		<div class="buttonContainer">
-			<button type="button" class="buttonContent">
+		<div class="buttonContainer" ng-controller = "routeController">
+			<button type="button" class="buttonContent" ng-click="go('YouTOP/Main')">
 				<span class="glyphicon glyphicon-arrow-right"></span>
 			</button>
 		</div>

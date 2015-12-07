@@ -1,0 +1,31 @@
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="YouTOP/LandingPage.css">
+	
+	<script>
+		$(document).ready(function(){
+		    $('.buttonContent').hover(function(){
+		    	$(this).css('transition', "0.25s");
+				$(this).css('-webkit-transform', 'translateY(-2px)');
+				$(this).css('box-shadow', '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)');
+			
+		        }, function(){
+		        	$(this).css('-webkit-transform', 'translateY(0px)');
+					$(this).css('box-shadow', '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)');
+		    });
+		});
+	</script>
+	
+	<div class="mainContainer">
+		<div class="messageContainer">
+			<div class="salutation">Hi!</div>
+			<div class="mainMessage">
+				Welcome to <span>YouTOP.</span><br>
+				Here you can search for YouTube's most popular videos, based on different criteria. 
+			</div>
+		</div>
+		<div class="buttonContainer" ng-controller = "routeController">
+			<button type="button" class="buttonContent" ng-click="go('/YouTOP/main')">
+				<span class="glyphicon glyphicon-arrow-right"></span>
+			</button>
+		</div>
+	</div>	
