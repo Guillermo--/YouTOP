@@ -1,5 +1,4 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="Main.css">
+<link rel="stylesheet" type="text/css" href="main.css">
 
 <script>
 	$(document).ready(function(){
@@ -23,8 +22,8 @@
 <div class="mainContainer">
 	<div class="sideBarContainer">
 		<div class="criteriaContainer" ng-controller="criteriaController">
-			<span class="criteria">Criteria</span> <select ng-model="criteria"
-				ng-init="criteria='views'" ng-change="chooseCriteria(criteria)">
+			<span class="criteria">Criteria</span> 
+				<select ng-model="criteria" ng-change="chooseCriteria(criteria)">
 				<option value="views" ng-selected="true">Most Viewed</option>
 				<option value="likes">Most Liked</option>
 			</select>
@@ -114,8 +113,8 @@
 		</div>
 
 		<div class="displayContainer" ng-controller="maxResultsController">
-			<span># Results</span> <select ng-model="maxResults"
-				ng-init="maxResults='5'" ng-change="getMaxResults(maxResults)">
+			<span># Results</span> 
+				<select ng-model="maxResults" ng-change="getMaxResults(maxResults)">
 				<option value="5" ng-selected="true">5</option>
 				<option value="10">10</option>
 				<option value="25">25</option>
@@ -131,8 +130,7 @@
 	</div>
 
 
-	<div class="searchResultsContainer"
-		ng-controller="displayResultsController">
+	<div class="searchResultsContainer" ng-controller="displayResultsController">
 		<div class="resultsContainerTitle">Search Results</div>
 		<div class="leftColumn">
 			<div class="resultItem" ng-repeat="resultItem in searchResults">
@@ -141,8 +139,7 @@
 				<div class="resultItemInfo">
 					<div class="resultItemTitle">{{resultItem.snippet.title}}</div>
 					<div class="resultItemChannel">{{resultItem.snippet.channelTitle}}</div>
-					<div class="resultItemViewCount">{{resultItem.viewCount |
-						number}} views</div>
+					<div class="resultItemViewCount">{{resultItem.viewCount | number}} views</div>
 				</div>
 			</div>
 		</div>
