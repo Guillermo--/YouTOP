@@ -120,7 +120,8 @@ app.controller('checkboxController', function(checkboxService, $scope) {
 
 app.controller('criteriaController', function(criteriaService, $scope) {
 	angular.element(document).ready(function () {
-		criteriaService.setCriteria('views');
+		$scope.criteria = 'views';
+		criteriaService.setCriteria($scope.criteria);
     });
 	
 	$scope.chooseCriteria = function(selectedCriteria) {
@@ -130,7 +131,8 @@ app.controller('criteriaController', function(criteriaService, $scope) {
 
 app.controller('maxResultsController', function(maxResultsService, $scope){
 	angular.element(document).ready(function () {
-		maxResultsService.setMaxResults('5');
+		$scope.maxResults = '5';
+		maxResultsService.setMaxResults($scope.maxResults);
     });
 	
 	$scope.getMaxResults = function(maxResults) {
