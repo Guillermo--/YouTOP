@@ -5,7 +5,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 public class Validator {
-	final static List<String> validCriteria = Arrays.asList("likes", "views");
+	final static List<String> validCriteria = Arrays.asList("views", "popular");
 	final static List<String> validMaxResults = Arrays.asList("5","10", "25", "50");
 
 	public static JSONObject validateMaxResults(long maxResults) {
@@ -41,6 +41,18 @@ public class Validator {
 			validationMessage.put("message", "Please select a category or enter a keyword.");
 		}
 		else {
+			validationMessage.put("isValid", true);
+		}
+		return validationMessage;
+	}
+	
+	public static JSONObject validateCategories(List<String> categories) {
+		JSONObject validationMessage = new JSONObject();
+		if(categories == null || categories.size() == 0) {
+			validationMessage.put("isValid", false);
+			validationMessage.put("message", "Please select a category");
+		}
+		else{
 			validationMessage.put("isValid", true);
 		}
 		return validationMessage;

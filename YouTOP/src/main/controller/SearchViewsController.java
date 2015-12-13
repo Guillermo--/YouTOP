@@ -2,24 +2,25 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import model.GSearch;
 import model.Validator;
 import services.SearchMostViewedService;
 
 
 @Controller
-public class SearchController {
+public class SearchViewsController {
 
 	SearchMostViewedService service = new SearchMostViewedService();
 	
-	
-	@RequestMapping(value = "/search.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchViews.do", method = RequestMethod.GET)
 	@ResponseBody
 	public List<GSearch> doSearchProcess(
 			@RequestParam("criteria") String criteria,
@@ -71,15 +72,8 @@ public class SearchController {
 	
 	public String determineSearchType(String criteria, List<String> categories, String keyword) {
 		String searchType = "";
-		if(criteria.equals("likes")) {
-			if(categories != null && categories.size() > 0) {
-				searchType = "likes,category";
-			}
-			else {
-				searchType = "likes,keyword";
-			}
-		}
-		else if(criteria.equals("views")) {
+
+		if(criteria.equals("views")) {
 			if(categories != null && categories.size() > 0) {
 				searchType = "views,category";
 			}
@@ -92,26 +86,26 @@ public class SearchController {
 	}
 
 	public List<GSearch> executeSearch(String searchType, List<String> categories, String keyword, long maxResults) {
-		System.out.println("Executing search...\n");
-		
-		SearchMostViewedService searchViews = new SearchMostViewedService();
+		System.out.println("Executing search...");
 		List<GSearch> response = new ArrayList<GSearch>();
 		if(searchType.contains("views") && searchType.contains("category")) {
+			
 			if(categories.contains("All")){
-				response = searchViews.getMostViewedAll(maxResults);
+				response = service.getMostViewedAll(maxResults);
 			}
 			else{
 				if(categories.size() == 1) {
-					response = searchViews.getMostViewedByCategory(maxResults, categories.get(0));
+					response = service.getMostViewedByCategory(maxResults, categories.get(0));
 				}
 				else {
-					response = searchViews.getMostViewedByMultipleCategories(maxResults, categories);
+					response = service.getMostViewedByMultipleCategories(maxResults, categories);
 				}
 			}
 		}
 		else if(searchType.contains("views") && searchType.contains("keyword")){
-			response = searchViews.getMostViewedByKeyword(maxResults, keyword);
+			response = service.getMostViewedByKeyword(maxResults, keyword);
 		}
+		
 		return response;
 	}
 	

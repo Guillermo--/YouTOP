@@ -41,6 +41,19 @@ public class GVideo {
 		
 		public class Thumbnails {
 			private String defaultUrl;
+			private Medium medium;
+			
+			public class Medium {
+				String url;
+				public String getUrl() {
+					return url;
+				}
+
+				public void setUrl(String url) {
+					this.url = url;
+				}
+				
+			}
 
 			public String getDefaultUrl() {
 				return defaultUrl;
@@ -48,6 +61,14 @@ public class GVideo {
 
 			public void setDefaultUrl(String defaultUrl) {
 				this.defaultUrl = defaultUrl;
+			}
+
+			public Medium getMedium() {
+				return medium;
+			}
+
+			public void setMedium(Medium medium) {
+				this.medium = medium;
 			}
 		}
 

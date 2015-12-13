@@ -25,7 +25,7 @@
 			<span class="criteria">Criteria</span> 
 				<select ng-model="criteria" ng-change="chooseCriteria(criteria)">
 				<option value="views" ng-selected="true">Most Viewed</option>
-				<option value="likes">Most Liked</option>
+				<option value="popular">Most Popular</option>
 			</select>
 		</div>
 
@@ -104,10 +104,9 @@
 
 
 			<div class="textInput" ng-controller="keywordController">
-				<input type="text" placeholder="Keyword"
+				<input id="textInput" type="text" placeholder="Keyword"
 					ng-keyup="setKeyword($event)"> <span class="highlight"></span>
 				<span class="bar"></span>
-				<!-- <label>Keyword</label> -->
 			</div>
 
 		</div>

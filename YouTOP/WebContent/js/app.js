@@ -40,6 +40,22 @@ app.service('criteriaService', function(){
 	return {
 		setCriteria : function(criteria){
 			selectedCriteria = criteria;
+			var keyword = angular.element(document.getElementById('textInput'));
+			var isDisabled = keyword.prop('disabled');
+
+			if(selectedCriteria == "popular"){
+				if(isDisabled == false){
+					keyword.prop('disabled', true);
+					keyword.attr("placeholder", "Disabled");
+				}
+			}
+			
+			if(selectedCriteria == "views") {
+				if(isDisabled == true) {
+					keyword.prop('disabled', false);
+					keyword.attr("placeholder", "Keyword");
+				}
+			}
 		},
 		getCriteria : function(){
 			return selectedCriteria;
@@ -72,7 +88,7 @@ app.service('keywordService', function() {
 });
 
 app.service('searchService', function($http) {
-	var possibleCriteria = ["views", "likes"];
+	var possibleCriteria = ["views", "popular"];
 	var possibleMaxResults = ["5","10", "25", "50"];
 	return {
 		validateInputs : function(criteria, categories, keyword, maxResults) {
@@ -94,12 +110,21 @@ app.service('searchService', function($http) {
 			}
 		},
 		
-		doSearch : function (criteria, categories, keyword, maxResults) {
-			return $http.get("./search.do", {
+		doSearchViews : function (criteria, categories, keyword, maxResults) {
+			return $http.get("./searchViews.do", {
 					params : {
 						"criteria" : criteria, 
 						"categories" : categories, 
 						"keyword" : keyword, 
+						"maxResults" : maxResults
+			}});
+		},
+		
+		doSearchPopular : function (criteria, categories, maxResults) {
+			return $http.get("./searchPopular.do", {
+					params : {
+						"criteria" : criteria, 
+						"categories" : categories, 
 						"maxResults" : maxResults
 			}});
 		}
@@ -152,12 +177,20 @@ app.controller('searchController', function(checkboxService, criteriaService, ma
 		$scope.selectedCriteria = criteriaService.getCriteria();
 		$scope.maxResults = maxResultsService.getMaxResults();
 		$scope.keyword = keywordService.getKeyword();
-				
+		
 		$scope.validationStatus = 
 			searchService.validateInputs($scope.selectedCriteria, $scope.selectedCategories, $scope.keyword, $scope.maxResults);
 		
-		if($scope.validationStatus === "VALID") {
-			var promise = searchService.doSearch($scope.selectedCriteria, $scope.selectedCategories, $scope.keyword, $scope.maxResults);
+		console.log("Validation status: ", $scope.validationStatus);
+		
+		if($scope.validationStatus === "VALID" && $scope.selectedCriteria == "views") {
+			var promise = searchService.doSearchViews($scope.selectedCriteria, $scope.selectedCategories, $scope.keyword, $scope.maxResults);
+			promise.then(function(response){
+				$rootScope.$broadcast('searchResultsObtained', response.data);
+			});
+		}
+		else if($scope.validationStatus === "VALID" && $scope.selectedCriteria == "popular") {
+			var promise = searchService.doSearchPopular($scope.selectedCriteria, $scope.selectedCategories, $scope.maxResults);
 			promise.then(function(response){
 				$rootScope.$broadcast('searchResultsObtained', response.data);
 			});

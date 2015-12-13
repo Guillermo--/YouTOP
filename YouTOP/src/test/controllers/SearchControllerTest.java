@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import controller.SearchController;
+import controller.SearchViewsController;
 
 public class SearchControllerTest {
 
-	SearchController searchController = new SearchController();
+	SearchViewsController searchController = new SearchViewsController();
 	String criteriaLikes = "likes";
 	String criteriaViews = "views";
 	List<String> categoriesNotEmpty = Arrays.asList("Random1","Random2");
