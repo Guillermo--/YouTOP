@@ -205,8 +205,10 @@ body {
   width:80%;
   border:none;
   background: none;
+  color: #FFFFFF;
   border-bottom:1px solid #607D8B;
 }
+
 .textInput input:focus 	{ 
 	outline:none; 
 }

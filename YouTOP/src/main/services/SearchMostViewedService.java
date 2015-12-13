@@ -10,7 +10,7 @@ import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 
 import model.ConfigUtil;
-import model.GVideo;
+import model.GSearch;
 import model.JSONMapper;
 import model.VideoUtil;
 import model.YouTubeUtil;
@@ -21,21 +21,12 @@ public class SearchMostViewedService {
 	private static YouTube youtube;
 	private String apiKey = ConfigUtil.getAPIKey();
 	
-	public static void main(String[] args) {
-		SearchMostViewedService ss = new SearchMostViewedService();
-		List<String> cats = new ArrayList<String>();
-		cats.add("1");
-		cats.add("10");
-		ss.getMostViewedByMultipleCategories(5, cats);
-		System.out.println("\n"+ss.getMostViewedAll(1).get(0).getViewCount());
-	}
-	
 	public SearchMostViewedService(){
 		youtube = YouTubeUtil.youtubeInit();
 	}
 	
-	public List<GVideo> getMostViewedAll(long maxResults) {
-		List<GVideo> videoList = new ArrayList<GVideo>();
+	public List<GSearch> getMostViewedAll(long maxResults) {
+		List<GSearch> videoList = new ArrayList<GSearch>();
 		try {
 			YouTube.Search.List search = youtube.search().list("snippet");
 			search.setKey(apiKey);
@@ -53,7 +44,7 @@ public class SearchMostViewedService {
 	        		String defaultThumb = searchResult.getSnippet().getThumbnails().getDefault().getUrl().toString();
 	        		searchResult.put("viewCount", viewCount);
 	        		searchResult.getSnippet().getThumbnails().put("defaultUrl", defaultThumb);
-	        		GVideo gvideo = JSONMapper.mapJSONtoGVideo(searchResult.toString());
+	        		GSearch gvideo = JSONMapper.mapJSONtoGVideo(searchResult.toString());
 	        		videoList.add(gvideo);
 	        	}
 	        }
@@ -63,8 +54,8 @@ public class SearchMostViewedService {
         return videoList;
 	}
 	
-	public List<GVideo> getMostViewedByCategory(long maxResults, String videoCategoryId) {
-	    List<GVideo> videoList = new ArrayList<GVideo>();
+	public List<GSearch> getMostViewedByCategory(long maxResults, String videoCategoryId) {
+	    List<GSearch> videoList = new ArrayList<GSearch>();
         try {
 			YouTube.Search.List search = youtube.search().list("snippet");
 			search.setKey(apiKey);
@@ -83,7 +74,7 @@ public class SearchMostViewedService {
 	        		searchResult.put("viewCount", viewCount);
 	        		String defaultThumb = searchResult.getSnippet().getThumbnails().getDefault().getUrl().toString();
 	        		searchResult.getSnippet().getThumbnails().put("defaultUrl", defaultThumb);
-	        		GVideo gvideo = JSONMapper.mapJSONtoGVideo(searchResult.toString());
+	        		GSearch gvideo = JSONMapper.mapJSONtoGVideo(searchResult.toString());
 	        		videoList.add(gvideo);
 	        	}
 	        }
@@ -93,9 +84,9 @@ public class SearchMostViewedService {
         return videoList;
 	}
 
-	public List<GVideo> getMostViewedByMultipleCategories(long maxResults, List<String> categoryIds) {
-		List<GVideo> topVideos = getMostViewedFromMultipleCategoriesUnsorted(maxResults, categoryIds);
-		List<GVideo> sortedTopVideosFinal = new ArrayList<GVideo>();
+	public List<GSearch> getMostViewedByMultipleCategories(long maxResults, List<String> categoryIds) {
+		List<GSearch> topVideos = getMostViewedFromMultipleCategoriesUnsorted(maxResults, categoryIds);
+		List<GSearch> sortedTopVideosFinal = new ArrayList<GSearch>();
 		sortDesc(topVideos, "viewCount");
 		for(int i = 0 ; i<maxResults; i++) {
 			sortedTopVideosFinal.add(topVideos.get(i));
@@ -103,8 +94,8 @@ public class SearchMostViewedService {
 		return sortedTopVideosFinal;
 	}
 	
-	public List<GVideo> getMostViewedByKeyword(long maxResults, String keyword) {
-        List<GVideo> videoList = new ArrayList<GVideo>();
+	public List<GSearch> getMostViewedByKeyword(long maxResults, String keyword) {
+        List<GSearch> videoList = new ArrayList<GSearch>();
 		try {
 			YouTube.Search.List search = youtube.search().list("id,snippet");
 			search.setKey(apiKey);
@@ -122,7 +113,7 @@ public class SearchMostViewedService {
                 	result.put("viewCount", viewCount);
 	        		String defaultThumb = result.getSnippet().getThumbnails().getDefault().getUrl().toString();
 	        		result.getSnippet().getThumbnails().put("defaultUrl", defaultThumb);
-	        		GVideo gvideo = JSONMapper.mapJSONtoGVideo(result.toString());
+	        		GSearch gvideo = JSONMapper.mapJSONtoGVideo(result.toString());
                 	videoList.add(gvideo);
                 }
             }
@@ -133,11 +124,11 @@ public class SearchMostViewedService {
 		return videoList;
 	}
 
-	private List<GVideo> getMostViewedFromMultipleCategoriesUnsorted(long maxResults, List<String> categoryIds) {
-		List<GVideo> topVideos = new ArrayList<GVideo>();
+	private List<GSearch> getMostViewedFromMultipleCategoriesUnsorted(long maxResults, List<String> categoryIds) {
+		List<GSearch> topVideos = new ArrayList<GSearch>();
 		for(int i = 0; i<categoryIds.size(); i++) {
 			String currentCategoryId = categoryIds.get(i);
-			List<GVideo> temp = getMostViewedByCategory(maxResults, currentCategoryId);
+			List<GSearch> temp = getMostViewedByCategory(maxResults, currentCategoryId);
 			if(temp != null) {
 				for(int j = 0; j<temp.size(); j++) {
 					topVideos.add(temp.get(j));

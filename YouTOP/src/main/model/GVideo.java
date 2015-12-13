@@ -1,147 +1,150 @@
 package model;
 
+import java.util.ArrayList;
+
 public class GVideo {
 	
-	private Snippet snippet;
-	private Id id;
-	private String kind;
 	private String etag;
+	private String id;
+	private String kind;
+	private Snippet snippet;
 	private long viewCount;
-	
+
 	public class Snippet {
-		private String publishedAt;
-		private String description;
-		private Thumbnails thumbnails;
-		private String title;
+		private int categoryId;
 		private String channelId;
 		private String channelTitle;
+		private String description;
 		private String liveBroadcastContent;
-
-		public String getDescription() {
-			return description;
-		}
-		public void setDescription(String description) {
-			this.description = description;
-		}
-		public Thumbnails getThumbnails() {
-			return thumbnails;
-		}
-		public void setThumbnails(Thumbnails thumbnails) {
-			this.thumbnails = thumbnails;
-		}
-		public String getTitle() {
-			return title;
-		}
-		public void setTitle(String title) {
-			this.title = title;
-		}
-		public String getChannelId() {
-			return channelId;
-		}
-		public void setChannelId(String channelId) {
-			this.channelId = channelId;
-		}
-		public String getChannelTitle() {
-			return channelTitle;
-		}
-		public void setChannelTitle(String channelTitle) {
-			this.channelTitle = channelTitle;
-		}
-		public String getLiveBroadcastContent() {
-			return liveBroadcastContent;
-		}
-		public void setLiveBroadcastContent(String liveBroadcastContent) {
-			this.liveBroadcastContent = liveBroadcastContent;
-		}
-		public String getPublishedAt() {
-			return publishedAt;
-		}
-		public void setPublishedAt(String publishedAt) {
-			this.publishedAt = publishedAt;
+		private Localized localized;
+		private String publishedAt;
+		private ArrayList<String> tags;
+		private Thumbnails thumbnails;
+		private String title;
+		
+		public class Localized {
+			private String description;
+			private String title;
+			public String getDescription() {
+				return description;
+			}
+			public void setDescription(String description) {
+				this.description = description;
+			}
+			public String getTitle() {
+				return title;
+			}
+			public void setTitle(String title) {
+				this.title = title;
+			}
 		}
 		
 		public class Thumbnails {
 			private String defaultUrl;
-			private High high;
-			private Medium medium;
-						
-			public class High {
-				String url;
 
-				public String getUrl() {
-					return url;
-				}
-
-				public void setUrl(String url) {
-					this.url = url;
-				}
-			}
-			
-			public class Medium {
-				String url;
-
-				public String getUrl() {
-					return url;
-				}
-
-				public void setUrl(String url) {
-					this.url = url;
-				}
-			}
-			
-			public High getHigh() {
-				return high;
-			}
-			public void setHigh(High high) {
-				this.high = high;
-			}
-			public Medium getMedium() {
-				return medium;
-			}
-			public void setMedium(Medium medium) {
-				this.medium = medium;
-			}
 			public String getDefaultUrl() {
 				return defaultUrl;
 			}
+
 			public void setDefaultUrl(String defaultUrl) {
 				this.defaultUrl = defaultUrl;
 			}
 		}
-	}
-	
-	public class Id {
-		private String kind;
-		private String videoId;
-		
-		public String getKind() {
-			return kind;
+
+		public int getCategoryId() {
+			return categoryId;
 		}
-		public void setKind(String kind) {
-			this.kind = kind;
+
+		public void setCategoryId(int categoryId) {
+			this.categoryId = categoryId;
 		}
-		public String getVideoId() {
-			return videoId;
+
+		public String getChannelId() {
+			return channelId;
 		}
-		public void setVideoId(String videoId) {
-			this.videoId = videoId;
+
+		public void setChannelId(String channelId) {
+			this.channelId = channelId;
+		}
+
+		public String getChannelTitle() {
+			return channelTitle;
+		}
+
+		public void setChannelTitle(String channelTitle) {
+			this.channelTitle = channelTitle;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		public String getLiveBroadcastContent() {
+			return liveBroadcastContent;
+		}
+
+		public void setLiveBroadcastContent(String liveBroadcastContent) {
+			this.liveBroadcastContent = liveBroadcastContent;
+		}
+
+		public Localized getLocalized() {
+			return localized;
+		}
+
+		public void setLocalized(Localized localized) {
+			this.localized = localized;
+		}
+
+		public String getPublishedAt() {
+			return publishedAt;
+		}
+
+		public void setPublishedAt(String publishedAt) {
+			this.publishedAt = publishedAt;
+		}
+
+		public ArrayList<String> getTags() {
+			return tags;
+		}
+
+		public void setTags(ArrayList<String> tags) {
+			this.tags = tags;
+		}
+
+		public Thumbnails getThumbnails() {
+			return thumbnails;
+		}
+
+		public void setThumbnails(Thumbnails thumbnails) {
+			this.thumbnails = thumbnails;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
+		public void setTitle(String title) {
+			this.title = title;
 		}
 	}
 
-	
-	public Snippet getSnippet() {
-		return snippet;
+	public String getEtag() {
+		return etag;
 	}
 
-	public void setSnippet(Snippet snippet) {
-		this.snippet = snippet;
+	public void setEtag(String etag) {
+		this.etag = etag;
 	}
 
-	public Id getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Id id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -153,12 +156,12 @@ public class GVideo {
 		this.kind = kind;
 	}
 
-	public String getEtag() {
-		return etag;
+	public Snippet getSnippet() {
+		return snippet;
 	}
 
-	public void setEtag(String etag) {
-		this.etag = etag;
+	public void setSnippet(Snippet snippet) {
+		this.snippet = snippet;
 	}
 
 	public long getViewCount() {
@@ -168,12 +171,4 @@ public class GVideo {
 	public void setViewCount(long viewCount) {
 		this.viewCount = viewCount;
 	}
-
-	
-	@Override
-	public String toString() {
-		return "GVideo [snippet=" + snippet + ", id=" + id + ", kind=" + kind + ", etag=" + etag + ", viewCount="
-				+ viewCount + "]";
-	}
-
 }

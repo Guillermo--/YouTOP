@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import model.GVideo;
+import model.GSearch;
 import model.Validator;
 import services.SearchMostViewedService;
 
@@ -21,7 +21,7 @@ public class SearchController {
 	
 	@RequestMapping(value = "/search.do", method = RequestMethod.GET)
 	@ResponseBody
-	public List<GVideo> doSearchProcess(
+	public List<GSearch> doSearchProcess(
 			@RequestParam("criteria") String criteria,
 			@RequestParam(value = "categories", required = false) List<String> categories,
 			@RequestParam(value = "keyword", required = false) String keyword,
@@ -41,7 +41,7 @@ public class SearchController {
 		}
 		
 		String searchType = determineSearchType(criteria, categories, keyword);
-		List<GVideo> response = executeSearch(searchType, categories, keyword, maxResults);
+		List<GSearch> response = executeSearch(searchType, categories, keyword, maxResults);
 	
 		
 		return response;
@@ -91,11 +91,11 @@ public class SearchController {
 		return searchType;
 	}
 
-	public List<GVideo> executeSearch(String searchType, List<String> categories, String keyword, long maxResults) {
+	public List<GSearch> executeSearch(String searchType, List<String> categories, String keyword, long maxResults) {
 		System.out.println("Executing search...\n");
 		
 		SearchMostViewedService searchViews = new SearchMostViewedService();
-		List<GVideo> response = new ArrayList<GVideo>();
+		List<GSearch> response = new ArrayList<GSearch>();
 		if(searchType.contains("views") && searchType.contains("category")) {
 			if(categories.contains("All")){
 				response = searchViews.getMostViewedAll(maxResults);

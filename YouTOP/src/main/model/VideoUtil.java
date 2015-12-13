@@ -26,5 +26,21 @@ public class VideoUtil {
 		}
 		return viewCount;
 	}
+	
+	public static String getVideoLikeCount(String videoId) {
+		youtube = YouTubeUtil.youtubeInit();
+	    String likeCount = "";
+		try {
+			YouTube.Videos.List search = youtube.videos().list("statistics").setId(videoId).setKey(apiKey);
+			VideoListResponse searchResponse = search.execute();
+			if(searchResponse != null) {
+				Video video = searchResponse.getItems().get(0);
+				likeCount = video.getStatistics().getLikeCount().toString();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return likeCount;
+	}
 		
 }
