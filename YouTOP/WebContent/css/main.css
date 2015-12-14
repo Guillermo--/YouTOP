@@ -161,17 +161,17 @@ body {
   width: 20px;  
 }
 
-.checkbox:checked:before {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  border: 2px solid #FFFFFF;
-  border-top-style: none;
-  border-right-style: none;
-    height: 10px;
-    padding: 5px;
+.checkbox:checked:before  {
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	border: 2px solid #FFFFFF;
+	border-top-style: none;
+	border-right-style: none;
+	height: 10px;
+	padding: 5px;
 }
 
 .checkbox:after {
@@ -193,6 +193,9 @@ body {
 }
 
 
+/* --------------------------
+	Keyword text input start
+   -------------------------- */ 
 .textInput { 
   position:relative; 
   margin-top: 30px;
@@ -213,7 +216,7 @@ body {
 	outline:none; 
 }
 
-/* LABEL ======================================= */
+/* --- Label --- */
 .textInput label {
 	font-family: 'Roboto';
   font-weight: 100;
@@ -227,14 +230,13 @@ body {
   -webkit-transition:0.2s ease all;
 }
 
-/* active state */
 .textInput input:focus ~ label, .textInput input:valid ~ label 		{
   top:-20px;
   font-size:18px;
   color:#FFFFFF;
 }
 
-/* BOTTOM BARS ================================= */
+/* --- Bottom bar --- */
 .bar { 
 	position:relative; 
 	display:block; 
@@ -259,12 +261,11 @@ body {
   right:50%; 
 }
 
-/* active state */
 .textInput input:focus ~ .bar:before, .textInput input:focus ~ .bar:after {
   width:50%;
 }
 
-/* HIGHLIGHTER ================================== */
+/* --- Highlight --- */
 .highlight {
   position:absolute;
   height:60%; 
@@ -275,14 +276,13 @@ body {
   opacity:0.5;
 }
 
-/* active state */
-.textInput input:focus ~ .highlight {
-  -webkit-animation:inputHighlighter 0.3s ease;
-  -moz-animation:inputHighlighter 0.3s ease;
-  animation:inputHighlighter 0.3s ease;
+.textInput input:focus ~ .highlight  {
+	-webkit-animation: inputHighlighter 0.3s ease;
+	-moz-animation: inputHighlighter 0.3s ease;
+	animation: inputHighlighter 0.3s ease;
 }
 
-/* ANIMATIONS ================ */
+/* --- Animations --- */
 @-webkit-keyframes inputHighlighter {
 	from { background:#607D8B; }
   to 	{ width:0; background:transparent; }
@@ -296,6 +296,9 @@ body {
   to 	{ width:0; background:transparent; }
 }
 
+/* ------------------------
+	Keyword text input end
+   ------------------------ */ 
 
 .displayContainer select {
 	font-weight:300;
@@ -368,8 +371,9 @@ body {
 
 
 
-
-
+/* --------------------
+  	Progress bar start 
+   -------------------- */
 #progressBar {
 	display: none;
 	position: fixed;
@@ -449,3 +453,7 @@ body {
 }
 
 svg:nth-child(1){stroke:#607d8b;}
+
+/* -------------------
+  	Progress bar end 
+   ------------------- */
