@@ -29,7 +29,6 @@
 			</select>
 		</div>
 
-
 		<div class="categoriesContainer" ng-controller="checkboxController">
 			<span class="titles">Category</span>
 			<div class="categoryItem">
@@ -122,6 +121,7 @@
 		</div>
 	</div>
 
+
 	<div class="searchButtonContainer" ng-controller="searchController">
 		<button type="button" ng-click="startSearch()">
 			<span class="glyphicon glyphicon-play"></span>
@@ -130,7 +130,13 @@
 
 
 	<div class="searchResultsContainer" ng-controller="displayResultsController">
-		<div class="resultsContainerTitle">Search Results</div>
+		<div id="progressBar">
+			<svg class="spinner" width="70px" height="70px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+				<circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30">
+				</circle>
+			</svg>
+		</div>
+ 		<div class="resultsContainerTitle">Search Results</div>
 		<div class="leftColumn">
 			<div class="resultItem" ng-repeat="resultItem in searchResults">
 				<div class="index">{{searchResults.indexOf(resultItem) + 1}}.</div>
@@ -143,4 +149,5 @@
 			</div>
 		</div>
 	</div>
+	
 </div>

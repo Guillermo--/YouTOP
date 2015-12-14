@@ -90,6 +90,7 @@ app.service('keywordService', function() {
 app.service('searchService', function($http) {
 	var possibleCriteria = ["views", "popular"];
 	var possibleMaxResults = ["5","10", "25", "50"];
+	
 	return {
 		validateInputs : function(criteria, categories, keyword, maxResults) {
 			console.log("Criteria:" +criteria);
@@ -173,6 +174,11 @@ app.controller('keywordController', function(keywordService, $scope){
 
 app.controller('searchController', function(checkboxService, criteriaService, maxResultsService, keywordService, searchService, $scope, $rootScope) {
 	$scope.startSearch = function(){
+		$rootScope.$broadcast('clearResults');
+		var spinner = angular.element(document.getElementById('progressBar'));
+		spinner.show();
+		console.log("should show spinner");
+		
 		$scope.selectedCategories = checkboxService.getSelectedItems();
 		$scope.selectedCriteria = criteriaService.getCriteria();
 		$scope.maxResults = maxResultsService.getMaxResults();
@@ -199,7 +205,14 @@ app.controller('searchController', function(checkboxService, criteriaService, ma
 });
 
 app.controller('displayResultsController', function($scope, $rootScope){
+	$rootScope.$on('clearResults', function() {
+		$scope.searchResults = {};
+	});
+	
 	$rootScope.$on('searchResultsObtained', function(event, response){
+		var spinner = angular.element(document.getElementById('progressBar'));
+		spinner.hide();
+		console.log("should hide spinner");
 		$scope.searchResults = response;
 	});
 });
