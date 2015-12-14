@@ -174,11 +174,6 @@ app.controller('keywordController', function(keywordService, $scope){
 
 app.controller('searchController', function(checkboxService, criteriaService, maxResultsService, keywordService, searchService, $scope, $rootScope) {
 	$scope.startSearch = function(){
-		$rootScope.$broadcast('clearResults');
-		var spinner = angular.element(document.getElementById('progressBar'));
-		spinner.show();
-		console.log("should show spinner");
-		
 		$scope.selectedCategories = checkboxService.getSelectedItems();
 		$scope.selectedCriteria = criteriaService.getCriteria();
 		$scope.maxResults = maxResultsService.getMaxResults();
@@ -189,17 +184,23 @@ app.controller('searchController', function(checkboxService, criteriaService, ma
 		
 		console.log("Validation status: ", $scope.validationStatus);
 		
-		if($scope.validationStatus === "VALID" && $scope.selectedCriteria == "views") {
-			var promise = searchService.doSearchViews($scope.selectedCriteria, $scope.selectedCategories, $scope.keyword, $scope.maxResults);
-			promise.then(function(response){
-				$rootScope.$broadcast('searchResultsObtained', response.data);
-			});
-		}
-		else if($scope.validationStatus === "VALID" && $scope.selectedCriteria == "popular") {
-			var promise = searchService.doSearchPopular($scope.selectedCriteria, $scope.selectedCategories, $scope.maxResults);
-			promise.then(function(response){
-				$rootScope.$broadcast('searchResultsObtained', response.data);
-			});
+		if($scope.validationStatus === "VALID") {
+			$rootScope.$broadcast('clearResults');
+			var spinner = angular.element(document.getElementById('progressBar'));
+			spinner.show();
+			
+			if($scope.selectedCriteria == "views") {
+				var promise = searchService.doSearchViews($scope.selectedCriteria, $scope.selectedCategories, $scope.keyword, $scope.maxResults);
+				promise.then(function(response){
+					$rootScope.$broadcast('searchResultsObtained', response.data);
+				});
+			}
+			else if($scope.selectedCriteria == "popular") {
+				var promise = searchService.doSearchPopular($scope.selectedCriteria, $scope.selectedCategories, $scope.maxResults);
+				promise.then(function(response){
+					$rootScope.$broadcast('searchResultsObtained', response.data);
+				});
+			}
 		}
 	}
 });
@@ -212,7 +213,6 @@ app.controller('displayResultsController', function($scope, $rootScope){
 	$rootScope.$on('searchResultsObtained', function(event, response){
 		var spinner = angular.element(document.getElementById('progressBar'));
 		spinner.hide();
-		console.log("should hide spinner");
 		$scope.searchResults = response;
 	});
 });
