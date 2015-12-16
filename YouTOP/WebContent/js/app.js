@@ -8,6 +8,15 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 	.when('/main', {
         templateUrl : 'pages/main.html'
 	})
+	.when('/login', {
+		templateUrl : 
+			'https://accounts.google.com/o/oauth2/auth?'+
+			'client_id=386721466748-2v06kngt8meu23oknh4osjp1hcln4v4n.apps.googleusercontent.com&'+
+			'redirect_uri=http%3A%2F%2Flocalhost%3A8080%2FYouTOP%2Foauth2callback&'+
+			'scope=https://www.googleapis.com/auth/yt-analytics.readonly&'+
+			'response_type=code&'+
+			'access_type=offline'
+	})
     .otherwise({
     	redirectTo : '/'
     });

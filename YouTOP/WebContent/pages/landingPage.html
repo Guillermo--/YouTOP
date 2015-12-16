@@ -15,6 +15,8 @@
 	</script>
 	
 	<div class="mainContainer">
+		<button type="button" class="loginButton" ng-controller="routeController" ng-click="go('/login')">Login</button>
+		
 		<div class="messageContainer">
 			<div class="salutation">Hi!</div>
 			<div class="mainMessage">
@@ -22,7 +24,8 @@
 				Here you can search for YouTube's most popular videos, based on different criteria. 
 			</div>
 		</div>
-		<div class="buttonContainer" ng-controller = "routeController">
+		
+		<div class="buttonContainer" ng-controller="routeController">
 			<button type="button" class="buttonContent" ng-click="go('/main')">
 				<span class="glyphicon glyphicon-arrow-right"></span>
 			</button>
