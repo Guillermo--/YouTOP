@@ -1,6 +1,16 @@
 var app = angular.module('app', ['ngRoute']);
 
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', '$httpProvider', function($routeProvider, $locationProvider, $sceDelegateProvider, $httpProvider) {
+	$sceDelegateProvider.
+		resourceUrlWhitelist([
+			'self',
+			'https://accounts.google.com/o/oauth2/auth?'+
+			'client_id=386721466748-hc6or76387qevpajh4iupstfsn11dc83.apps.googleusercontent.com&'+
+			'redirect_uri=http%3A%2F%2Flocalhost%3A8080%2FYouTOP%2Foauth2callback&'+
+			'scope=https://www.googleapis.com/auth/yt-analytics.readonly&'+
+			'response_type=code&'+
+			'access_type=offline']);
+	
 	$routeProvider  
 	.when('/', {
         templateUrl: 'pages/landingPage.html'
@@ -9,13 +19,8 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
         templateUrl : 'pages/main.html'
 	})
 	.when('/login', {
-		templateUrl : 
-			'https://accounts.google.com/o/oauth2/auth?'+
-			'client_id=386721466748-2v06kngt8meu23oknh4osjp1hcln4v4n.apps.googleusercontent.com&'+
-			'redirect_uri=http%3A%2F%2Flocalhost%3A8080%2FYouTOP%2Foauth2callback&'+
-			'scope=https://www.googleapis.com/auth/yt-analytics.readonly&'+
-			'response_type=code&'+
-			'access_type=offline'
+		template : " ",
+		controller : 'loginController'
 	})
     .otherwise({
     	redirectTo : '/'
@@ -224,6 +229,11 @@ app.controller('displayResultsController', function($scope, $rootScope){
 		spinner.hide();
 		$scope.searchResults = response;
 	});
+});
+
+app.controller('loginController', function($http){
+	console.log("Inside loginController");
+
 });
 
 //------------------------- ROUTING FUNCTIONS ----------------------------

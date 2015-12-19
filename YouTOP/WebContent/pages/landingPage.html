@@ -2,20 +2,64 @@
 	
 	<script>
 		$(document).ready(function(){
-		    $('.buttonContent').hover(function(){
-		    	$(this).css('transition', "0.25s");
-				$(this).css('-webkit-transform', 'translateY(-2px)');
-				$(this).css('box-shadow', '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)');
-			
-		        }, function(){
+			hoverButton();
+		});
+		
+		var clientId = '386721466748-hc6or76387qevpajh4iupstfsn11dc83.apps.googleusercontent.com';
+		var apiKey = 'AIzaSyDXz-f_jsDJZ8mF46OUjcNPjplnDtyeqeA';
+		var scopes = 'https://www.googleapis.com/auth/yt-analytics.readonly';
+
+		function handleClientLoad() {
+			gapi.client.setApiKey(apiKey);
+			window.setTimeout(checkAuth,1);
+			console.log("Client loaded...");
+		}
+				
+	    function checkAuth() {
+	      	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+	    }
+	    
+	    function handleAuthResult(authResult) {
+	      	var authorizeButton = document.getElementById('authorize-button');
+	      	console.log(authResult);
+	      	if (authResult && !authResult.error) {
+	      		console.log("Auth successful!");
+	        	authorizeButton.style.visibility = 'hidden';
+	        	makeApiCall();
+	      	} else {
+	      		console.log("Auth result error...");
+	        	authorizeButton.style.visibility = '';
+	        	authorizeButton.onclick = handleAuthClick;
+	      	}
+	    }
+	    
+	    function handleAuthClick(event) {
+	    	console.log("Handling Auth Click");
+	      	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+	      	return false;
+	    }
+		
+		function hoverButton() {
+		    $('.buttonContent').hover(
+	    		function(){
+		    		$(this).css('transition', "0.25s");
+					$(this).css('-webkit-transform', 'translateY(-2px)');
+					$(this).css('box-shadow', '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)');
+		        }, 
+		        function(){
 		        	$(this).css('-webkit-transform', 'translateY(0px)');
 					$(this).css('box-shadow', '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)');
 		    });
-		});
+		}
+		
+		
+		
+		
 	</script>
+	<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 	
 	<div class="mainContainer">
-		<button type="button" class="loginButton" ng-controller="routeController" ng-click="go('/login')">Login</button>
+		<button type="button" class="loginButton" id="authorize-button" onclick="handleAuthClick(event)">Login</button>
 		
 		<div class="messageContainer">
 			<div class="salutation">Hi!</div>
