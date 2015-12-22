@@ -1,43 +1,10 @@
-	<link rel="stylesheet" type="text/css" href="css/landingPage.css">
-	
+	<link rel="stylesheet" type="text/css" href="css/landingPage.css">	
+
+
 	<script>
 		$(document).ready(function(){
 			hoverButton();
 		});
-		
-		var clientId = '386721466748-hc6or76387qevpajh4iupstfsn11dc83.apps.googleusercontent.com';
-		var apiKey = 'AIzaSyDXz-f_jsDJZ8mF46OUjcNPjplnDtyeqeA';
-		var scopes = 'https://www.googleapis.com/auth/yt-analytics.readonly';
-
-		function handleClientLoad() {
-			gapi.client.setApiKey(apiKey);
-			window.setTimeout(checkAuth,1);
-			console.log("Client loaded...");
-		}
-				
-	    function checkAuth() {
-	      	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
-	    }
-	    
-	    function handleAuthResult(authResult) {
-	      	var authorizeButton = document.getElementById('authorize-button');
-	      	console.log(authResult);
-	      	if (authResult && !authResult.error) {
-	      		console.log("Auth successful!");
-	        	authorizeButton.style.visibility = 'hidden';
-	        	makeApiCall();
-	      	} else {
-	      		console.log("Auth result error...");
-	        	authorizeButton.style.visibility = '';
-	        	authorizeButton.onclick = handleAuthClick;
-	      	}
-	    }
-	    
-	    function handleAuthClick(event) {
-	    	console.log("Handling Auth Click");
-	      	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
-	      	return false;
-	    }
 		
 		function hoverButton() {
 		    $('.buttonContent').hover(
@@ -52,14 +19,11 @@
 		    });
 		}
 		
-		
-		
-		
 	</script>
-	<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-	
+		
+		
 	<div class="mainContainer">
-		<button type="button" class="loginButton" id="authorize-button" onclick="handleAuthClick(event)">Login</button>
+		<button type="button" class="loginButton" id="authorize-button" ng-controller="loginController" onclick="handleAuthClick(event)">Login</button>
 		
 		<div class="messageContainer">
 			<div class="salutation">Hi!</div>
@@ -75,3 +39,5 @@
 			</button>
 		</div>
 	</div>	
+	
+	

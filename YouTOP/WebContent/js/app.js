@@ -231,10 +231,50 @@ app.controller('displayResultsController', function($scope, $rootScope){
 	});
 });
 
-app.controller('loginController', function($http){
-	console.log("Inside loginController");
+app.controller('loginController', function($http, $scope, $rootScope, $window){
+	console.log("Initializing loginController");
+	
+	var clientId = '386721466748-hc6or76387qevpajh4iupstfsn11dc83.apps.googleusercontent.com';
+	var apiKey = 'AIzaSyDXz-f_jsDJZ8mF46OUjcNPjplnDtyeqeA';
+	var scopes = 'https://www.googleapis.com/auth/yt-analytics.readonly';
+
+	angular.element($window).bind('load', function() {
+		handleClientLoad();
+	});
+	
+	function handleClientLoad() {
+		gapi.client.setApiKey(apiKey);
+		window.setTimeout(checkAuth,1);
+		console.log("Client loaded...");
+	}
+			
+    function checkAuth() {
+      	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+    }
+    
+    function handleAuthResult(authResult) {
+      	var authorizeButton = document.getElementById('authorize-button');
+      	console.log(authResult);
+      	if (authResult && !authResult.error) {
+      		console.log("Auth successful!");
+        	authorizeButton.style.visibility = 'hidden';
+        	//makeApiCall();
+      	} else {
+      		console.log("Auth result error...");
+        	authorizeButton.style.visibility = '';
+        	authorizeButton.onclick = handleAuthClick;
+      	}
+    }
+    
+    function handleAuthClick(event) {
+    	console.log("Handling Auth Click");
+      	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+      	return false;
+    }
+    
 
 });
+
 
 //------------------------- ROUTING FUNCTIONS ----------------------------
 
