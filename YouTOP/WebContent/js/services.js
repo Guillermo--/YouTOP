@@ -1,7 +1,5 @@
 angular.module('app')
 
-
-
 .service('checkboxService', function(){
 	var selectedCategories = [];
 	return {

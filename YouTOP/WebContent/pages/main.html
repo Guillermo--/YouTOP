@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
+<script src="https://www.youtube.com/iframe_api"/>
 <script>
 	$(document).ready(function(){
 	    $('.searchButtonContainer button').hover(function(){
@@ -18,6 +19,8 @@
     	});
 	});
 </script>
+
+
 
 <div class="mainContainer">
 	<div class="sideBarContainer">
@@ -140,7 +143,11 @@
 		<div class="leftColumn">
 			<div class="resultItem" ng-repeat="resultItem in searchResults">
 				<div class="index">{{searchResults.indexOf(resultItem) + 1}}.</div>
-				<img src="{{resultItem.snippet.thumbnails.medium.url}}" />
+				<!-- <img id ="player" src="{{resultItem.snippet.thumbnails.medium.url}}" /> -->
+				<iframe id="player" type="text/html" 
+  					ng-src={{getIframeSrc(resultItem.id.videoId)}}
+					frameborder="0"
+					allowfullscreen></iframe>
 				<div class="resultItemInfo">
 					<div class="resultItemTitle">{{resultItem.snippet.title}}</div>
 					<div class="resultItemChannel">{{resultItem.snippet.channelTitle}}</div>

@@ -9,7 +9,8 @@ angular.module('app', ['ngRoute'])
 			'redirect_uri=http%3A%2F%2Flocalhost%3A8080%2FYouTOP%2Foauth2callback&'+
 			'scope=https://www.googleapis.com/auth/yt-analytics.readonly&'+
 			'response_type=code&'+
-			'access_type=offline']);
+			'access_type=offline',
+			'https://www.youtube.com/embed/*']);
 	
 	$routeProvider  
 	.when('/', {
@@ -17,10 +18,6 @@ angular.module('app', ['ngRoute'])
 	})
 	.when('/main', {
         templateUrl : 'pages/main.html'
-	})
-	.when('/login', {
-		template : " ",
-		controller : 'loginController'
 	})
 	.when('/dashboard', {
 		templateUrl : 'pages/userDashboard.html'

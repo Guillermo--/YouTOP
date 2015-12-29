@@ -325,12 +325,12 @@ body {
 	position: relative;
 	font-size: 1.5em;
 	border-bottom: 1px solid #cccccc;
-	height: 130px;
+	height: 170px;
 	display: flex;
 	align-items: center;
 }
 
-.resultItem img {
+#player {
 	position: relative;
 	display: inline-block;
 	vertical-align: middle;

@@ -77,6 +77,10 @@ angular.module('app')
 		spinner.hide();
 		$scope.searchResults = response;
 	});
+	
+	$scope.getIframeSrc = function (videoId) {
+		  return 'https://www.youtube.com/embed/' + videoId;
+	};
 })
 
 .controller('loginController', function(routeService, $http, $scope, $rootScope, $window, $location){
@@ -84,7 +88,9 @@ angular.module('app')
 	
 	var clientId = '386721466748-hc6or76387qevpajh4iupstfsn11dc83.apps.googleusercontent.com';
 	var apiKey = 'AIzaSyDXz-f_jsDJZ8mF46OUjcNPjplnDtyeqeA';
-	var scopes = ['https://www.googleapis.com/auth/yt-analytics.readonly', 'https://www.googleapis.com/auth/youtube.readonly'];
+	var scopes = ['https://www.googleapis.com/auth/yt-analytics.readonly', 
+	              'https://www.googleapis.com/auth/youtube.readonly', 
+	              'https://www.googleapis.com/auth/plus.me'];
 
 	angular.element($window).bind('load', function() {
 		handlePageLoad();
@@ -105,59 +111,109 @@ angular.module('app')
       	console.log(authResult);
       	if (authResult && !authResult.error) {
       		console.log("Auth successful!");
-        	authorizeButton.style.visibility = 'hidden';
+        	authorizeButton.innerHTML = "Logged in!";
+        	authorizeButton.onclick = goDashboard;
+        	loadAPIClientInterfaces();
       	} else {
-      		console.log("Auth result error...");
+      		console.log("Auth error...");
         	authorizeButton.style.visibility = '';
         	authorizeButton.onclick = handleAuthClick;
       	}
+    }
+    
+    function goDashboard() {
+		$window.location = './#/dashboard';
     }
     
     function handleAuthClick(event) {
     	console.log("Handling Auth Click");
       	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult)
       		.then(function(){        	
-      			$window.location = './#/dashboard';
-      			console.log("redirect should've occurred")
+      			goDashboard();
       		});
       	return false;
     }
     
-    
     function loadAPIClientInterfaces() {
         gapi.client.load('youtube', 'v3', function() {
           gapi.client.load('youtubeAnalytics', 'v1', function() {
-            // After both client interfaces load, use the Data API to request
-            // information about the authenticated user's channel.
             getUserChannel();
           });
         });
-      }
+    }
 
     function getUserChannel() {
     	
         var request = gapi.client.youtube.channels.list({
-          // Setting the "mine" request parameter's value to "true" indicates that
-          // you want to retrieve the currently authenticated user's channel.
           mine: true,
-          part: 'id,contentDetails'
+          part: 'id,contentDetails,snippet'
         });
 
         request.execute(function(response) {
           if ('error' in response) {
             console.log(response.error.message);
           } else {
+        	  console.log("Getting user info...");
+        	  getUserInfo();
             // We need the channel's channel ID to make calls to the Analytics API.
             // The channel ID value has the form "UCdLFeWKpkLhkguiMZUp8lWA".
-            channelId = response.items[0].id;
+        	console.log("Response: ", response);
+            var channelId = response.items[0].id;
+        	console.log("Channel Id: ", channelId);
+
             // Retrieve the playlist ID that uniquely identifies the playlist of
             // videos uploaded to the authenticated user's channel. This value has
             // the form "UUdLFeWKpkLhkguiMZUp8lWA".
             var uploadsListId = response.items[0].contentDetails.relatedPlaylists.uploads;
             // Use the playlist ID to retrieve the list of uploaded videos.
+            console.log("Uploads: ",uploadsListId);
             getPlaylistItems(uploadsListId);
+
+          }
+        });
+    }
+    
+    function getPlaylistItems(listId) {
+        // See https://developers.google.com/youtube/v3/docs/playlistitems/list
+        var request = gapi.client.youtube.playlistItems.list({
+          playlistId: listId,
+          part: 'snippet'
+        });
+
+        request.execute(function(response) {
+          if ('error' in response) {
+            displayMessage(response.error.message);
+          } else {
+            if ('items' in response) {
+              // The jQuery.map() function iterates through all of the items in
+              // the response and creates a new array that only contains the
+              // specific property we're looking for: videoId.
+              var videoIds = $.map(response.items, function(item) {
+                return item.snippet.resourceId.videoId;
+              });
+
+              // Now that we know the IDs of all the videos in the uploads list,
+              // we can retrieve information about each video.
+              // getVideoMetadata(videoIds);
+              console.log("Video Ids: ", videoIds);
+            } else {
+              console.log('There are no videos in your channel.');
+            }
           }
         });
       }
+    
+    function getUserInfo() {
+    	gapi.client.load('plus','v1', function(){
+    		 var request = gapi.client.plus.people.get({
+    		   'userId': 'me'
+    		 });
+    		 request.execute(function(resp) {
+    		   console.log("Retrieved profile for: " + resp.displayName);
+    		 });
+    		});
+    }
+    
+    
     
 });
