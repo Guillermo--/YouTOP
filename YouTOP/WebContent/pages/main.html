@@ -143,9 +143,9 @@
 		<div class="leftColumn">
 			<div class="resultItem" ng-repeat="resultItem in searchResults">
 				<div class="index">{{searchResults.indexOf(resultItem) + 1}}.</div>
-				<!-- <img id ="player" src="{{resultItem.snippet.thumbnails.medium.url}}" /> -->
-				<iframe id="player" type="text/html" 
-  					ng-src={{getIframeSrc(resultItem.id.videoId)}}
+				<!-- <img id="player" src="{{resultItem.snippet.thumbnails.medium.url}}" /> -->
+				<iframe ng-controller="iframeController" id="player" type="text/html" 
+  					ng-src={{getIframeSrc(resultItem.id)}}
 					frameborder="0"
 					allowfullscreen></iframe>
 				<div class="resultItemInfo">

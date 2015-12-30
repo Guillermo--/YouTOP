@@ -76,11 +76,8 @@ angular.module('app')
 		var spinner = angular.element(document.getElementById('progressBar'));
 		spinner.hide();
 		$scope.searchResults = response;
+		console.log(response);
 	});
-	
-	$scope.getIframeSrc = function (videoId) {
-		  return 'https://www.youtube.com/embed/' + videoId;
-	};
 })
 
 .controller('loginController', function(routeService, $http, $scope, $rootScope, $window, $location){
@@ -214,6 +211,15 @@ angular.module('app')
     		});
     }
     
-    
-    
+})
+
+.controller('iframeController', function($scope) {
+	$scope.getIframeSrc = function (id) {
+		if(id.videoId == null) {
+			return 'https://www.youtube.com/embed/' + id;
+		} else {
+			return 'https://www.youtube.com/embed/' + id.videoId;
+		}
+		  
+	};
 });

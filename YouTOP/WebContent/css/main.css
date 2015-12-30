@@ -377,7 +377,7 @@ body {
 #progressBar {
 	display: none;
 	position: fixed;
- 	background-color: #fff;
+ 	background-color: none;
  	margin: auto;
  	top: 45%;
  	left: 55%;
