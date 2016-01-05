@@ -26,22 +26,6 @@ body {
 }
 
 
-.loginButton {
-	z-index: 2;
-	position: relative;
-	float: right;
-	margin-top: 30px;
-	margin-right: 40px;
-	background: #546c78;
-	font-weight: 300;
-	color: #FFFFFF;
-	height: 40px;
-	width: 120px;
-	font-size: 1em;
-	border: none;
-	cursor: pointer;
-}
-
 .messageContainer {
 	position: relative;
 	border: 1px solid #C52800;

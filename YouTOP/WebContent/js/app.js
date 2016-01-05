@@ -19,9 +19,6 @@ angular.module('app', ['ngRoute'])
 	.when('/main', {
         templateUrl : 'pages/main.html'
 	})
-	.when('/dashboard', {
-		templateUrl : 'pages/userDashboard.html'
-	})
     .otherwise({
     	redirectTo : '/'
     });
