@@ -369,6 +369,25 @@ body {
 	width: 40px;
 }
 
+#errorToast {
+	position: absolute;
+	display: block;
+	padding: 10px;
+	font-size: .8em;
+	min-height: 5%;
+	width: 80%;
+	bottom: -10%;
+	background: #B71C1C;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	left: 20px;
+	vertical-align: middle;
+}
+
+#errorToast span {
+	position: relative;
+  	display: inline-block;
+  	line-height: normal; 
+}
 
 
 /* --------------------

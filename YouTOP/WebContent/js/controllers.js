@@ -34,7 +34,7 @@ angular.module('app')
 	}
 })
 
-.controller('searchController', function(checkboxService, criteriaService, maxResultsService, keywordService, searchService, $scope, $rootScope) {
+.controller('searchController', function(errorToastService, checkboxService, criteriaService, maxResultsService, keywordService, searchService, $scope, $rootScope) {
 	$scope.startSearch = function(){
 		$scope.selectedCategories = checkboxService.getSelectedItems();
 		$scope.selectedCriteria = criteriaService.getCriteria();
@@ -63,6 +63,11 @@ angular.module('app')
 					$rootScope.$broadcast('searchResultsObtained', response.data);
 				});
 			}
+		} 
+		else {
+			errorToastService.setMessage($scope.validationStatus);
+			errorToastService.showToast();
+			
 		}
 	}
 })

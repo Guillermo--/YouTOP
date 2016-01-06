@@ -73,7 +73,7 @@ angular.module('app')
 
 .service('searchService', function($http) {
 	var possibleCriteria = ["views", "popular"];
-	var possibleMaxResults = ["5","10", "25", "50"];
+	var possibleMaxResults = ["5", "10", "25", "50"];
 	
 	return {
 		validateInputs : function(criteria, categories, keyword, maxResults) {
@@ -112,6 +112,22 @@ angular.module('app')
 						"categories" : categories, 
 						"maxResults" : maxResults
 			}});
+		}
+	}
+})
+
+.service('errorToastService', function() {
+	var toast = angular.element(document.getElementById('errorToast'));
+	return {
+		setMessage : function(msge) {
+			$(toast).text(msge);
+		},
+		showToast : function() {
+			$(toast).animate({bottom: '5%'}, "slow");
+			
+			setTimeout(function(){
+				$(toast).animate({bottom: '-10%'}, "slow");
+			}, 3000);
 		}
 	}
 });
