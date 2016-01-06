@@ -17,15 +17,6 @@ public class SearchMostPopularService {
 	private static YouTube youtube;
 	private static String apiKey = ConfigUtil.getAPIKey();
 	
-	public static void main(String[] args) {
-		SearchMostPopularService service = new SearchMostPopularService();
-		List<GVideo> searchList = service.getMostPopularByCategory(5, "10");
-		
-		for(GVideo listItem : searchList) {
-			System.out.println(listItem.getSnippet().getTitle().toString());
-		}
-	}
-	
 	public SearchMostPopularService(){
 		youtube = YouTubeUtil.youtubeInit();
 	}
