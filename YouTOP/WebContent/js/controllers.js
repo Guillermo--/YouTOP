@@ -67,7 +67,6 @@ angular.module('app')
 		else {
 			errorToastService.setMessage($scope.validationStatus);
 			errorToastService.showToast();
-			
 		}
 	}
 })
@@ -92,6 +91,5 @@ angular.module('app')
 		} else {
 			return 'https://www.youtube.com/embed/' + id.videoId;
 		}
-		  
 	};
 });

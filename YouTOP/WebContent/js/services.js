@@ -124,7 +124,6 @@ angular.module('app')
 		},
 		showToast : function() {
 			$(toast).animate({bottom: '5%'}, "slow");
-			
 			setTimeout(function(){
 				$(toast).animate({bottom: '-10%'}, "slow");
 			}, 3000);

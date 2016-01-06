@@ -4,13 +4,8 @@ angular.module('app', ['ngRoute'])
 	$sceDelegateProvider.
 		resourceUrlWhitelist([
 			'self',
-			'https://accounts.google.com/o/oauth2/auth?'+
-			'client_id=386721466748-hc6or76387qevpajh4iupstfsn11dc83.apps.googleusercontent.com&'+
-			'redirect_uri=http%3A%2F%2Flocalhost%3A8080%2FYouTOP%2Foauth2callback&'+
-			'scope=https://www.googleapis.com/auth/yt-analytics.readonly&'+
-			'response_type=code&'+
-			'access_type=offline',
-			'https://www.youtube.com/embed/*']);
+			'https://www.youtube.com/embed/*'
+		]);
 	
 	$routeProvider  
 	.when('/', {
@@ -28,6 +23,7 @@ angular.module('app', ['ngRoute'])
 
 
 //------------------------- ROUTING FUNCTIONS ----------------------------
+
 .service('routeService', function($location){
 	return{
 		go : function(path) {
