@@ -10,7 +10,7 @@ html {
 
 
 body {
-	background-color: #C52800;
+	background-color: #37474F;
 	color: white;
 	font-family: 'Roboto';
 	font-weight: 100;
@@ -28,7 +28,7 @@ body {
 
 .messageContainer {
 	position: relative;
-	border: 1px solid #C52800;
+	border: 1px solid #37474F;
 	min-height: 75%;
 }
 
@@ -54,7 +54,7 @@ body {
 
 .buttonContainer {
 	position: relative;
-	margin-top: 5%;
+	margin-top: 3%;
 }
 
 .buttonContainer button:focus, .loginButton:focus {
@@ -64,18 +64,18 @@ body {
 .buttonContent { 
 	position: relative;
 	display: block;
-	height: 80px;
-	width: 80px;
+	height: 90px;
+	width: 90px;
 	margin-left: auto;
 	margin-right: auto;
 	border-radius: 50%;
-	background: #546c78;
+	background: #C52800;
 	border: none;
 	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 .buttonContent span {
-	font-size: 2em;
+	font-size: 2.5em;
 	display: block;
 	margin-left: 5px;
 	color: #FFFFFF;
