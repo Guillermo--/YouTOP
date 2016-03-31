@@ -44,8 +44,6 @@ angular.module('app')
 		$scope.validationStatus = 
 			searchService.validateInputs($scope.selectedCriteria, $scope.selectedCategories, $scope.keyword, $scope.maxResults);
 		
-		console.log("Validation status: ", $scope.validationStatus);
-		
 		if($scope.validationStatus === "VALID") {
 			$rootScope.$broadcast('clearResults');
 			var spinner = angular.element(document.getElementById('progressBar'));
@@ -80,7 +78,6 @@ angular.module('app')
 		var spinner = angular.element(document.getElementById('progressBar'));
 		spinner.hide();
 		$scope.searchResults = response;
-		console.log(response);
 	});
 })
 

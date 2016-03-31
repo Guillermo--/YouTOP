@@ -77,10 +77,6 @@ angular.module('app')
 	
 	return {
 		validateInputs : function(criteria, categories, keyword, maxResults) {
-			console.log("Criteria:" +criteria);
-			console.log("Categories: "+categories);
-			console.log("Keyword: "+keyword);
-			console.log("maxResults: "+maxResults);
 			if(criteria == null || criteria.length === 0 || (possibleCriteria.indexOf(criteria) < 0)){
 				return "Invalid criteria.";
 			}
